@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Interface;
+using ModelsLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Repo
 {
-    public class ShopRepo : IRepo<ShopRepo>
+    public class ShopRepo : IRepo
     {
-        public List<ShopRepo> ReadAll(Guid id)
+        
+
+        List<Product> IRepo.ReadAll(Guid id)
         {
             throw new NotImplementedException();
         }

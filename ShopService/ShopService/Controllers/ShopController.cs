@@ -17,9 +17,9 @@ namespace ShopService.Controllers
       
 
         private readonly ILogger<ShopController> _logger;
-        private readonly IRepo<ShopRepo> _repo;
+        private readonly IRepo _repo;
 
-        public ShopController(ILogger<ShopController> logger, IRepo<ShopRepo> repo)
+        public ShopController(ILogger<ShopController> logger, IRepo repo)
         {
             _logger = logger;
             _repo = repo;
