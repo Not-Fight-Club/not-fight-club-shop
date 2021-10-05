@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace DataLayerDbContext.Models
+namespace ModelsLayer.Models
 {
     public partial class UserProduct
     {
