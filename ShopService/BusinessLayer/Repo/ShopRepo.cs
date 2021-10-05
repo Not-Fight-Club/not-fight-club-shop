@@ -10,9 +10,7 @@ namespace BusinessLayer.Repo
 {
     public class ShopRepo : IRepo
     {
-        
-
-        List<Product> IRepo.ReadAll(Guid id)
+        public List<Product> ReadAll(Guid id)
         {
             throw new NotImplementedException();
         }
