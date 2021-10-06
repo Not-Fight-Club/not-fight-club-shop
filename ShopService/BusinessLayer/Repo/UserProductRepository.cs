@@ -46,6 +46,9 @@ namespace BusinessLayer.Repo
       return _mapper.ModelToViewModel(userProducts);
     }
 
-
-  }
+		public List<ViewUserProduct> ReadAll(Guid id)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

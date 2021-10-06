@@ -50,14 +50,22 @@ namespace BusinessLayer.Mapper
         public List<ViewSeasonal> ModelToViewModel(List<Seasonal> obj)
         {
             List<ViewSeasonal> seasons = new List<ViewSeasonal>();
-            for (int i = 0; i < obj.Count; i++)
+            try
             {
-                ViewSeasonal s = new ViewSeasonal();
-                s.SeasonalId = obj[i].SeasonalId;
-                s.SeasonalName = obj[i].SeasonalName;
-                s.SeasonalStartDate = obj[i].SeasonalStartDate;
-                s.SeasonalEndDate = obj[i].SeasonalEndDate;
+                for (int i = 0; i < obj.Count; i++)
+                {
+                    Console.WriteLine(i);
+                    ViewSeasonal s = new ViewSeasonal();
+                    s.SeasonalId = obj[i].SeasonalId;
+                    s.SeasonalName = obj[i].SeasonalName;
+                    s.SeasonalStartDate = obj[i].SeasonalStartDate;
+                    s.SeasonalEndDate = obj[i].SeasonalEndDate;
+                }
             }
+            catch(IndexOutOfRangeException)
+            {
+                
+			}
             return seasons;
         }
 
@@ -71,6 +79,7 @@ namespace BusinessLayer.Mapper
             List<Seasonal> seasons = new List<Seasonal>(obj.Count);
             for (int i = 0; i < obj.Count; i++)
             {
+                Console.WriteLine(i);
                 seasons[i].SeasonalId = obj[i].SeasonalId;
                 seasons[i].SeasonalName = obj[i].SeasonalName;
                 seasons[i].SeasonalStartDate = obj[i].SeasonalStartDate;
