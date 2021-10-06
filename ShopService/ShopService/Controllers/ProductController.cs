@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataLayerDbContext.Models;
 using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLayer.Models;
@@ -12,7 +10,7 @@ using ModelsLayer.ViewModels;
 
 namespace ShopService.Controllers
 {
-  [Route("api/[controller]")]
+    [Route("api/[controller]")]
   public class ProductController : Controller
   {
 
@@ -25,13 +23,13 @@ namespace ShopService.Controllers
 
     // GET: api/values
     [HttpGet]
-    public IEnumerable<Product> Get()
-    {
-      using (ShopDbContext allProducts = new ShopDbContext())
-      {
-        return allProducts.Products.ToList();
-      }
-    }
+    //public IEnumerable<Product> Get()
+    //{
+    //  using (ShopDbContext allProducts = new ShopDbContext())
+    //  {
+    //    return allProducts.Products.ToList();
+    //  }
+    //}
 
     // GET api/values/5
     [HttpGet("{id}")]

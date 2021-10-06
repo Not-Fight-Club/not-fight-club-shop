@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
-using BusinessLayer.Interface;
-using DataLayerDbContext.Models;
+
 
 
 
@@ -14,11 +13,11 @@ using DataLayerDbContext.Models;
 
 namespace ShopService.Controllers
 {
-  [Route("api/[controller]")]
+    [Route("api/[controller]")]
   public class UserProductController : Controller
   {
 
-    private readonly IRepo<ViewUserProduct, int> _repo;
+        private readonly IRepo<ViewUserProduct, int> _repo;
 
     public UserProductController(IRepo<ViewUserProduct, int> repo)
     {
@@ -55,16 +54,28 @@ namespace ShopService.Controllers
 
     }
 
-    // // PUT api/values/5
-    // [HttpPut("{id}")]
-    // public void Put(int id, [FromBody] string value)
-    // {
-    // }
+    [HttpGet("api/[controller]/[action]")]
+    public async Task<ActionResult<List<ViewProduct>>> PreviousPurchases(Guid id)
+    {
+        //check if the model is good or not
+        if (!ModelState.IsValid) return BadRequest();
+        //make call to the repo to return all previous purchases
+        List<ViewUserProduct> specificUserProducts = await _repo.ReadAll(id);
 
-    // // DELETE api/values/5
-    // [HttpDelete("{id}")]
-    // public void Delete(int id)
-    // {
-    // }
-  }
+        //return action result with the list of previous purchases
+        return Ok(specificUserProducts);
+    }
+
+        // // PUT api/values/5
+        // [HttpPut("{id}")]
+        // public void Put(int id, [FromBody] string value)
+        // {
+        // }
+
+        // // DELETE api/values/5
+        // [HttpDelete("{id}")]
+        // public void Delete(int id)
+        // {
+        // }
+    }
 }

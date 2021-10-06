@@ -46,9 +46,11 @@ namespace BusinessLayer.Repo
       return _mapper.ModelToViewModel(products);
     }
 
-		public List<ViewProduct> ReadAll(Guid id)
+		public Task<List<ViewProduct>> ReadAll(Guid id)
 		{
 			throw new NotImplementedException();
 		}
-	}
+
+        
+    }
 }

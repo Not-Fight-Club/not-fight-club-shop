@@ -35,7 +35,7 @@ namespace BusinessLayer.Repo
 			throw new NotImplementedException();
 		}
 
-		public List<Seasonal> ReadAll(Guid id)
+		public Task<List<Seasonal>> ReadAll(Guid id)
 		{
 			throw new NotImplementedException();
 		}
