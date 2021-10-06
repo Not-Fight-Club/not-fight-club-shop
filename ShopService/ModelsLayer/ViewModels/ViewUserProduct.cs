@@ -1,20 +1,28 @@
 ﻿using ModelsLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
+#nullable disable
 
 namespace ModelsLayer.ViewModels
 {
-    public class ViewUserProduct
+
+  public class ViewUserProduct
+  {
+    public ViewUserProduct() { }
+    public ViewUserProduct(int userProductId, Guid userId, int productId)
     {
-
-        public int UserProductId { get; set; }
-        public Guid? UserId { get; set; }
-        public int ProductId { get; set; }
-
-        public virtual Product Product { get; set; }
+      UserProductId = userProductId;
+      UserId = userId;
+      ProductId = productId;
     }
+
+    public int UserProductId { get; set; }
+    public Guid? UserId { get; set; }
+    public int ProductId { get; set; }
+
+    // public virtual Product Product { get; set; }
+  }
     
 }
