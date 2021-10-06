@@ -9,15 +9,15 @@ namespace ModelsLayer.ViewModels
   {
     public ViewProduct() { }
 
-    // public ViewProduct(int productId, int? seasonalId, string productName, decimal productPrice, string productDescription, decimal? productDiscount)
-    // {
-    //   ProductId = productId;
-    //   SeasonalId = seasonalId;
-    //   ProductName = productName;
-    //   ProductPrice = productPrice;
-    //   ProductDescription = productDescription;
-    //   ProductDiscount = productDiscount;
-    // }
+    public ViewProduct(int productId, int? seasonalId, string productName, decimal productPrice, string productDescription, decimal? productDiscount)
+    {
+      ProductId = productId;
+      SeasonalId = seasonalId;
+      ProductName = productName;
+      ProductPrice = productPrice;
+      ProductDescription = productDescription;
+      ProductDiscount = productDiscount;
+    }
 
     public int ProductId { get; set; }
     public int? SeasonalId { get; set; }
