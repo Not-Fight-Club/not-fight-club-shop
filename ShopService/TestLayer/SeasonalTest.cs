@@ -6,13 +6,20 @@ using System.Threading.Tasks;
 using ModelsLayer.ViewModels;
 using ModelsLayer.Models;
 using BusinessLayer.Mapper;
+using BusinessLayer.Repo;
 using Xunit;
+using DataLayerDbContext.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TestLayer
 {
 	public class SeasonalTest
 	{
-		private readonly SeasonalMapper _mapper = new SeasonalMapper();
+		public DbContextOptions<ShopDbContext> Options { get; set; } = new DbContextOptionsBuilder<ShopDbContext>()
+			.UseInMemoryDatabase(databaseName: "TestDb")
+			.Options;
+		private static readonly SeasonalMapper _mapper = new SeasonalMapper();
+		private readonly SeasonRepo _repo = new SeasonRepo(_mapper);
 		private ViewSeasonal viewHalloween = new ViewSeasonal()
 		{
 			SeasonalId = 1,
@@ -65,6 +72,15 @@ namespace TestLayer
 		}
 
 		[Fact]
+		public void CorrectLength()
+		{
+			seasonals.Add(halloween);
+			seasonals.Add(christmas);
+			int seasonalLength = _mapper.ListLength(seasonals);
+			Assert.Equal(2, seasonalLength);
+		}
+
+		[Fact]
 		public void CorrectGroupMappingToEF()
 		{
 			viewSeasonals.Add(viewHalloween);
@@ -82,6 +98,16 @@ namespace TestLayer
 			List<ViewSeasonal> listTest = _mapper.ModelToViewModel(seasonals);
 			Assert.Equal(viewHalloween, listTest[0]);
 			Assert.Equal(viewChristmas, listTest[1]);
+		}
+
+		[Fact]
+		public async void AddTest()
+		{
+			ViewSeasonal newSeason = await _repo.Add(viewHalloween);
+			Assert.Equal(viewHalloween.SeasonalId, newSeason.SeasonalId);
+			Assert.Equal(viewHalloween.SeasonalName, newSeason.SeasonalName);
+			Assert.Equal(viewHalloween.SeasonalStartDate, newSeason.SeasonalStartDate);
+			Assert.Equal(viewHalloween.SeasonalEndDate, newSeason.SeasonalEndDate);
 		}
 	}
 }
