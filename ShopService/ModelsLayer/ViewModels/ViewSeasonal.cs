@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelsLayer.ViewModels
 {
-	class ViewSeasonal
+	public class ViewSeasonal
 	{
 		public int SeasonalId { get; set; }
 		public string SeasonalName { get; set; }
