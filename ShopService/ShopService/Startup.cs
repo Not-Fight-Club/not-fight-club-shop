@@ -37,8 +37,10 @@ namespace ShopService
       services.AddSingleton<IMapper<Product, ViewProduct>, ProductMapper>();
       services.AddSingleton<IRepo<ViewUserProduct, int>, UserProductRepository>();
       services.AddSingleton<IMapper<UserProduct, ViewUserProduct>, UserProductMapper>();
-
-      services.AddControllers();
+        services.AddSingleton<IRepo<ViewSeasonal, int>, SeasonRepo>();
+        services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonDateRepo>();
+        services.AddSingleton<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
+        services.AddControllers();
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopService", Version = "v1" });
