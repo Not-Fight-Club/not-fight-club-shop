@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <Folder Include="Interface\" />
+    <Folder Include="Mapper\" />
+    <Folder Include="Repo\" />
   </ItemGroup>
 
 </Project>

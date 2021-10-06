@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Interface
 {
+
   public interface IRepo<T, Y>
   {
 
@@ -31,6 +32,7 @@ namespace BusinessLayer.Interface
     /// <returns></returns>
     public Task<List<T>> Read();
   }
+
 
 
 }
