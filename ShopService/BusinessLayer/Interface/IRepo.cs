@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Interface
 {
-    public interface IRepo
+    public interface IRepo<T>
     {
-        public List<Product> ReadAll(Guid id); 
+        public Task<List<T>> ReadAll(Guid id); 
     }
 }
