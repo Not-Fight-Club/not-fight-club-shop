@@ -5,6 +5,8 @@ using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
+using Microsoft.Extensions.Logging;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,9 +18,12 @@ namespace ShopService.Controllers
 
     private readonly IRepo<ViewProduct, int> _repo;
 
-    public ProductController(IRepo<ViewProduct, int> repo)
+    private readonly ILogger<ProductController> _logger;
+
+    public ProductController(IRepo<ViewProduct, int> repo, ILogger<ProductController> logger)
     {
       _repo = repo;
+      _logger = logger;
     }
 
     // GET: api/values
@@ -36,6 +41,8 @@ namespace ShopService.Controllers
     public async Task<ActionResult<Product>> GetProductById(int id)
     {
       ViewProduct product = await _repo.Read(id);
+
+      _logger.LogInformation($"{product.ProductName} was selected.");
       return Ok(product);
     }
 
@@ -46,6 +53,8 @@ namespace ShopService.Controllers
       if (!ModelState.IsValid) return BadRequest("Invalid data.");
 
       var newProduct = await _repo.Add(product);
+
+      _logger.LogInformation($"{newProduct.ProductName} was added to product list.");
       return Ok(newProduct);
 
     }
