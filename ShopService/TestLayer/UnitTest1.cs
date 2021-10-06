@@ -9,9 +9,9 @@ namespace TestLayer
         [Fact]
         public void DiscountTest()
         {
-            decimal discountTotal = Discount.DiscountedCost(3, 2);
+            decimal discountTotal = Discount.DiscountedCost(3, (decimal)0.02);
 
-            Assert.Equal(1, discountTotal);
+            Assert.Equal((decimal)2.94, discountTotal);
 
         }
     }

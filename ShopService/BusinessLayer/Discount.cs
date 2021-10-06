@@ -13,13 +13,16 @@ namespace BusinessLayer
        
         public static decimal DiscountedCost(decimal productPrice, decimal productDiscount)
         {
-            decimal discountedTotal;
+            decimal discountedTotal; //what the total price will be after the discount has been applied
+            decimal actualDiscunt;//this stores the amount that will be discounted from the purchase price 
             Product p = new Product();
+
 
             p.ProductPrice = productPrice;
             p.ProductDiscount = productDiscount;
 
-            discountedTotal = productPrice - productDiscount;
+            actualDiscunt = productPrice * productDiscount;
+            discountedTotal = productPrice - actualDiscunt;
 
             return discountedTotal;
         
