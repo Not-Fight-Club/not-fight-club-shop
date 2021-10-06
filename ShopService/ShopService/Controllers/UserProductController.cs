@@ -59,12 +59,11 @@ namespace ShopService.Controllers
       // bucks = ur.buck
       // var bucks = 0;
       // ViewProduct pr = await _pro.Read(userProduct.ProductId);
-      // if (product.ProductDiscount != null)
-      // {
-      //   Discount.DiscountedCost(product.ProductPrice, product.ProductDiscount)
-      // }
 
-      if (product.ProductPrice > user.Bucks)
+      var discountedPrice = Discount.DiscountedCost(product.ProductPrice, product.ProductDiscount);
+
+
+      if (discountedPrice > user.Bucks)
       {
         _logger.LogInformation($"Not enough bucks to purchase");
         return NotFound($"Not enough money");
