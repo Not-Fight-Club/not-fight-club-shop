@@ -50,5 +50,10 @@ namespace BusinessLayer.Repo
 		{
 			throw new NotImplementedException();
 		}
+
+		public Task<ViewUserProduct> Update(ViewUserProduct obj)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
