@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>c1a38461-2101-4b45-867e-6806d9ed4726</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +11,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+  
   </ItemGroup>
 
   <ItemGroup>

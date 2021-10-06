@@ -7,7 +7,7 @@ using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using BusinessLayer.Interface;
 using DataLayerDbContext.Models;
-
+using Microsoft.Extensions.Logging;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,9 +20,13 @@ namespace ShopService.Controllers
 
     private readonly IRepo<ViewUserProduct, int> _repo;
 
-    public UserProductController(IRepo<ViewUserProduct, int> repo)
+    private readonly ILogger<ProductController> _logger;
+
+
+    public UserProductController(IRepo<ViewUserProduct, int> repo, ILogger<ProductController> logger)
     {
       _repo = repo;
+      _logger = logger;
     }
     // GET: api/values
     // [HttpGet]
@@ -51,6 +55,8 @@ namespace ShopService.Controllers
       if (!ModelState.IsValid) return BadRequest("Invalid data.");
 
       var newUserProduct = await _repo.Add(userProduct);
+      _logger.LogInformation($"User with user id: {newUserProduct.UserId} purchased product with product id:{newUserProduct.ProductId}");
+
       return Ok(newUserProduct);
 
     }
