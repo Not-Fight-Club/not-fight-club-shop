@@ -25,13 +25,13 @@ namespace ShopService.Controllers
             _repo = repo;
         }
 
-        [HttpGet("[controller]/[action]/{id}")]
-        public async Task<ActionResult<List<ViewProduct>>> PreviousPurchases(Guid id)
-        {
-            //check if the model is good or not
-            //make call to the repo to return all previous purchases
-            //return action result with the list of previous purchases
-            return _repo.ReadAll(id);
-        }
+        //[HttpGet("[controller]/[action]/{id}")]
+        //public async Task<ActionResult<List<ViewProduct>>> PreviousPurchases(Guid id)
+        //{
+        //    //check if the model is good or not
+        //    //make call to the repo to return all previous purchases
+        //    //return action result with the list of previous purchases
+        //    return _repo.ReadAll(id);
+        //}
     }
 }

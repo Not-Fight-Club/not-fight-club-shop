@@ -52,6 +52,7 @@ namespace BusinessLayer.Mapper
             List<ViewSeasonal> seasons = new List<ViewSeasonal>();
             for (int i = 0; i < obj.Count; i++)
             {
+                Console.WriteLine(i);
                 ViewSeasonal s = new ViewSeasonal();
                 s.SeasonalId = obj[i].SeasonalId;
                 s.SeasonalName = obj[i].SeasonalName;
@@ -71,6 +72,7 @@ namespace BusinessLayer.Mapper
             List<Seasonal> seasons = new List<Seasonal>(obj.Count);
             for (int i = 0; i < obj.Count; i++)
             {
+                Console.WriteLine(i);
                 seasons[i].SeasonalId = obj[i].SeasonalId;
                 seasons[i].SeasonalName = obj[i].SeasonalName;
                 seasons[i].SeasonalStartDate = obj[i].SeasonalStartDate;
