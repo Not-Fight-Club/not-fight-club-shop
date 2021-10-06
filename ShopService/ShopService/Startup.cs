@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
@@ -19,9 +20,10 @@ namespace ShopService
 {
     public class Startup
   {
-    public Startup(IConfiguration configuration)
+    public Startup(IConfiguration configuration )
     {
       Configuration = configuration;
+      
     }
 
     public IConfiguration Configuration { get; }
@@ -40,10 +42,23 @@ namespace ShopService
                 options.AddPolicy(name: "shop", builder =>
                  {
                      builder.WithOrigins(
-                   "http:localhost4200:",
-                   "https:localhost:5001",
-                   "https:localhost:5000",
-                   "http:localhost:5000"
+                   
+                   "https://localhost:5000",
+                   "https://localhost:5002",
+                   "https://localhost:5004",
+                   "https://localhost:5006",
+                   "https://localhost:5008",
+                   "https://localhost:5010",
+                   
+
+                   "http://localhost4200:",
+                   "http://localhost:5001",
+                   "http://localhost:5003",
+                   "http://localhost:5005",
+                   "http://localhost:5007",
+                   "http://localhost:5009",
+                   "http://localhost:5011"
+
 
                    )
                 .AllowAnyHeader()
@@ -71,7 +86,8 @@ namespace ShopService
             {
                 if (!options.IsConfigured)
                 {
-                    options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
+                    // options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
+                    options.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = ShopDb; Trusted_Connection = True;");
                 }
             });//end dbcontext dependency
             

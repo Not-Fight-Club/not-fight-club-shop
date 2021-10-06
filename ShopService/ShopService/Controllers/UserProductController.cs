@@ -60,7 +60,7 @@ namespace ShopService.Controllers
 
     }
 
-    [HttpGet("api/[controller]/[action]")]
+    [HttpGet("[action]/{id}")]
     public async Task<ActionResult<List<ViewProduct>>> PreviousPurchases(Guid id)
     {
         //check if the model is good or not

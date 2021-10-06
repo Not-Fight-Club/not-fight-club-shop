@@ -9,11 +9,11 @@ namespace DataLayerDbContext.Models
 {
   public partial class ShopDbContext : DbContext
   {
-    public ShopDbContext()
-    {
-    }
+        public ShopDbContext()
+        {
+        }
 
-    public ShopDbContext(DbContextOptions<ShopDbContext> options)
+        public ShopDbContext(DbContextOptions<ShopDbContext> options)
         : base(options)
     {
     }
@@ -22,17 +22,17 @@ namespace DataLayerDbContext.Models
     public virtual DbSet<Seasonal> Seasonals { get; set; }
     public virtual DbSet<UserProduct> UserProducts { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //  if (!optionsBuilder.IsConfigured)
-    //  {
-    //    // #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-    //    // optionsBuilder.UseSqlServer("Server=08162021dotnetuta.database.windows.net;Database=ShopDb;User Id=sqladmin;Password=Password12345;");
-    //    optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ShopDb;Trusted_Connection=True;");
-    //  }
-    //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+////#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//                //optionsBuilder.UseSqlServer("Server=08162021dotnetuta.database.windows.net;Database=ShopDb;User Id=sqladmin;Password=Password12345;");
+//                optionsBuilder.UseSqlServer("ShopLocalDb");
+//            }
+        }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
