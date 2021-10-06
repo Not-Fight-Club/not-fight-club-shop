@@ -8,6 +8,9 @@ namespace BusinessLayer.Interface
 {
   public interface IRepo<T, Y>
   {
+
+    public List<T> ReadAll(Guid id);
+
     /// <summary>
     /// add something to the database
     /// </summary>
@@ -28,4 +31,6 @@ namespace BusinessLayer.Interface
     /// <returns></returns>
     public Task<List<T>> Read();
   }
+
+
 }
