@@ -86,7 +86,7 @@ namespace BusinessLayer.Repo
       return _mapper.ModelToViewModel(newSeason);
     }
 
-    public List<ViewSeasonal> ReadAll(Guid id)
+    public Task<List<ViewSeasonal>> ReadAll(Guid id)
     {
       throw new NotImplementedException();
     }

@@ -12,12 +12,19 @@ namespace ModelsLayer.ViewModels
   {
     public ViewUserProduct() { }
 
-    public ViewUserProduct(int userProductId, Guid? userId, int productId)
+    public ViewUserProduct(int userProductId, Guid? userId, int productId, Product product)
     {
       UserProductId = userProductId;
       UserId = userId;
       ProductId = productId;
       Product = product;
+    }
+
+    public ViewUserProduct(int userProductId, Guid? userId, int productId)
+    {
+      UserProductId = userProductId;
+      UserId = userId;
+      ProductId = productId;
     }
 
     public int UserProductId { get; set; }
@@ -26,5 +33,5 @@ namespace ModelsLayer.ViewModels
 
     public virtual Product Product { get; set; }
   }
-    
+
 }

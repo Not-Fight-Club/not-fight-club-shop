@@ -14,11 +14,11 @@ using Microsoft.Extensions.Logging;
 
 namespace ShopService.Controllers
 {
-    [Route("api/[controller]")]
+  [Route("api/[controller]")]
   public class UserProductController : Controller
   {
 
-        private readonly IRepo<ViewUserProduct, int> _repo;
+    private readonly IRepo<ViewUserProduct, int> _repo;
 
     private readonly ILogger<ProductController> _logger;
 
@@ -71,7 +71,6 @@ namespace ShopService.Controllers
       {
         ViewUserProduct up = new ViewUserProduct(0, user.UserId, product.ProductId);
 
-
         var newUserProduct = await _repo.Add(up);
         _logger.LogInformation($"User with user id: {newUserProduct.UserId} purchased {product.ProductName}");
 
@@ -86,25 +85,25 @@ namespace ShopService.Controllers
     [HttpGet("[action]/{id}")]
     public async Task<ActionResult<List<ViewProduct>>> PreviousPurchases(Guid id)
     {
-        //check if the model is good or not
-        if (!ModelState.IsValid) return BadRequest();
-        //make call to the repo to return all previous purchases
-        List<ViewUserProduct> specificUserProducts = await _repo.ReadAll(id);
+      //check if the model is good or not
+      if (!ModelState.IsValid) return BadRequest();
+      //make call to the repo to return all previous purchases
+      List<ViewUserProduct> specificUserProducts = await _repo.ReadAll(id);
 
-        //return action result with the list of previous purchases
-        return Ok(specificUserProducts);
+      //return action result with the list of previous purchases
+      return Ok(specificUserProducts);
     }
 
-        // // PUT api/values/5
-        // [HttpPut("{id}")]
-        // public void Put(int id, [FromBody] string value)
-        // {
-        // }
+    // // PUT api/values/5
+    // [HttpPut("{id}")]
+    // public void Put(int id, [FromBody] string value)
+    // {
+    // }
 
-        // // DELETE api/values/5
-        // [HttpDelete("{id}")]
-        // public void Delete(int id)
-        // {
-        // }
-    }
+    // // DELETE api/values/5
+    // [HttpDelete("{id}")]
+    // public void Delete(int id)
+    // {
+    // }
+  }
 }
