@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLayer.Interface;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 
 namespace BusinessLayer.Mapper
 {
-	public class SeasonalMapper
+	public class SeasonalMapper : IMapper<Seasonal, ViewSeasonal>
 	{
         /// <summary>
         /// Converts a database Seasonal object to a view Seasonal object
@@ -54,19 +55,23 @@ namespace BusinessLayer.Mapper
             {
                 for (int i = 0; i < obj.Count; i++)
                 {
-                    Console.WriteLine(i);
-                    ViewSeasonal s = new ViewSeasonal();
-                    s.SeasonalId = obj[i].SeasonalId;
-                    s.SeasonalName = obj[i].SeasonalName;
-                    s.SeasonalStartDate = obj[i].SeasonalStartDate;
-                    s.SeasonalEndDate = obj[i].SeasonalEndDate;
+                    seasons.Add(new ViewSeasonal());
+                    seasons[i].SeasonalId = obj[i].SeasonalId;
+                    seasons[i].SeasonalName = obj[i].SeasonalName;
+                    seasons[i].SeasonalStartDate = obj[i].SeasonalStartDate;
+                    seasons[i].SeasonalEndDate = obj[i].SeasonalEndDate;
                 }
             }
-            catch(IndexOutOfRangeException)
+            catch(ArgumentOutOfRangeException e)
             {
-                
+                throw new Exception("Augument Out of Range Exception: ", e);
 			}
             return seasons;
+        }
+
+        public int ListLength(List<Seasonal> obj)
+        {
+            return obj.Count;
         }
 
         /// <summary>
@@ -79,7 +84,7 @@ namespace BusinessLayer.Mapper
             List<Seasonal> seasons = new List<Seasonal>(obj.Count);
             for (int i = 0; i < obj.Count; i++)
             {
-                Console.WriteLine(i);
+                seasons.Add(new Seasonal());
                 seasons[i].SeasonalId = obj[i].SeasonalId;
                 seasons[i].SeasonalName = obj[i].SeasonalName;
                 seasons[i].SeasonalStartDate = obj[i].SeasonalStartDate;

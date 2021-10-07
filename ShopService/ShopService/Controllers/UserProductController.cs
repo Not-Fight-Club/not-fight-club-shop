@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using BusinessLayer.Interface;
+using BusinessLayer;
 using DataLayerDbContext.Models;
 using Microsoft.Extensions.Logging;
 
@@ -48,15 +49,37 @@ namespace ShopService.Controllers
       return Ok(userProduct);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<ViewUserProduct>> Post([FromBody] ViewUserProduct userProduct)
+    [HttpPost()]
+    public async Task<ActionResult<ViewUserProduct>> Post([FromBody] ViewUser user, ViewProduct product)
     {
       if (!ModelState.IsValid) return BadRequest("Invalid data.");
+      //should be able to get bucks from user table
+      // ViewUser ur = await _pro.Read(userProduct.UserId);
+      // bucks = ur.buck
+      // var bucks = 0;
+      // ViewProduct pr = await _pro.Read(userProduct.ProductId);
 
-      var newUserProduct = await _repo.Add(userProduct);
-      _logger.LogInformation($"User with user id: {newUserProduct.UserId} purchased product with product id:{newUserProduct.ProductId}");
+      var discountedPrice = Discount.DiscountedCost(product.ProductPrice, product.ProductDiscount);
 
-      return Ok(newUserProduct);
+
+      if (discountedPrice > user.Bucks)
+      {
+        _logger.LogInformation($"Not enough bucks to purchase");
+        return NotFound($"Not enough money");
+      }
+      else
+      {
+        ViewUserProduct up = new ViewUserProduct(0, user.UserId, product.ProductId);
+
+
+        var newUserProduct = await _repo.Add(up);
+        _logger.LogInformation($"User with user id: {newUserProduct.UserId} purchased {product.ProductName}");
+
+        return Ok(newUserProduct);
+      }
+
+
+
 
     }
 

@@ -54,8 +54,11 @@ namespace BusinessLayer.Repo
 
         return _mapper.ModelToViewModel(products);
 
-    }
+    } 
 
-       
-    }
-}
+		public Task<ViewUserProduct> Update(ViewUserProduct obj)
+		{
+			throw new NotImplementedException();
+		}
+	}//Eoc
+}//EoN

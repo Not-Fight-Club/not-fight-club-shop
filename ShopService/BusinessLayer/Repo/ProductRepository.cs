@@ -51,6 +51,10 @@ namespace BusinessLayer.Repo
 			throw new NotImplementedException();
 		}
 
-        
-    }
-}
+
+		public Task<ViewProduct> Update(ViewProduct obj)
+		{
+			throw new NotImplementedException();
+		}
+	}// Eoc
+}//EoN

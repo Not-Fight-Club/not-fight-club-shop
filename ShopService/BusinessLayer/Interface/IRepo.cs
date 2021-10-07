@@ -32,8 +32,12 @@ namespace BusinessLayer.Interface
     /// </summary>
     /// <returns></returns>
     public Task<List<T>> Read();
+
+    /// <summary>
+    /// update something in the database
+    /// </summary>
+    /// <param name="obj"> the objecte that you want to edit in the database</param>
+    /// <returns></returns>
+    public Task<T> Update(T obj);
   }
-
-
-
 }
