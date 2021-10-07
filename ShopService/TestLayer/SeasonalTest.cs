@@ -14,51 +14,44 @@ using Microsoft.Data.Sqlite;
 
 namespace TestLayer
 {
-	public class SeasonalTest
+	public class SeasonalTest : SeasonRepoTest
 	{
-		private static SqliteConnection connection = new SqliteConnection("DataSource=:memory:");
-		private static DbContextOptions<ShopDbContext> Options = new DbContextOptionsBuilder<ShopDbContext>()
-			.UseSqlite(connection)
-			.Options;
-		/*private static DbContextOptions<ShopDbContext> Options = new DbContextOptionsBuilder<ShopDbContext>()
-			.UseInMemoryDatabase(databaseName: "TestDb")
-			.Options;*/
-
 		private static readonly SeasonalMapper _mapper = new SeasonalMapper();
-		private readonly SeasonRepo _repo = new SeasonRepo(Options, _mapper);
 
 		private ViewSeasonal viewHalloween = new ViewSeasonal()
 		{
 			SeasonalId = 1,
 			SeasonalName = "Halloween",
-			SeasonalStartDate = new DateTime(2021, 10, 25, 00, 00, 00),
-			SeasonalEndDate = new DateTime(2021, 11, 01, 00, 00, 00)
+			SeasonalStartDate = new DateTime(2021, 10, 25, 00, 00, 00, DateTimeKind.Utc),
+			SeasonalEndDate = new DateTime(2021, 11, 01, 00, 00, 00, DateTimeKind.Utc)
 		};
 		private Seasonal halloween = new Seasonal()
 		{
 			SeasonalId = 1,
 			SeasonalName = "Halloween",
-			SeasonalStartDate = new DateTime(2021, 10, 25, 00, 00, 00),
-			SeasonalEndDate = new DateTime(2021, 11, 01, 00, 00, 00)
+			SeasonalStartDate = new DateTime(2021, 10, 25, 00, 00, 00, DateTimeKind.Utc),
+			SeasonalEndDate = new DateTime(2021, 11, 01, 00, 00, 00, DateTimeKind.Utc)
 		};
 		private ViewSeasonal viewChristmas = new ViewSeasonal()
 		{
 			SeasonalId = 2,
 			SeasonalName = "Christmas",
-			SeasonalStartDate = new DateTime(2021, 12, 04, 00, 00, 00),
-			SeasonalEndDate = new DateTime(2021, 12, 26, 00, 00, 00)
+			SeasonalStartDate = new DateTime(2021, 12, 04, 00, 00, 00, DateTimeKind.Utc),
+			SeasonalEndDate = new DateTime(2021, 12, 26, 00, 00, 00, DateTimeKind.Utc)
 		};
 		private Seasonal christmas = new Seasonal()
 		{
 			SeasonalId = 2,
 			SeasonalName = "Christmas",
-			SeasonalStartDate = new DateTime(2021, 12, 04, 00, 00, 00),
-			SeasonalEndDate = new DateTime(2021, 12, 26, 00, 00, 00)
+			SeasonalStartDate = new DateTime(2021, 12, 04, 00, 00, 00, DateTimeKind.Utc),
+			SeasonalEndDate = new DateTime(2021, 12, 26, 00, 00, 00, DateTimeKind.Utc)
 		};
 		private List<Seasonal> seasonals = new List<Seasonal>();
 		private List<ViewSeasonal> viewSeasonals = new List<ViewSeasonal>();
 
-		public SeasonalTest()
+		public SeasonalTest() : base(new DbContextOptionsBuilder<ShopDbContext>()
+			.UseSqlite("Filename=Test.db")
+			.Options, _mapper)
 		{
 			
 		}
@@ -69,8 +62,8 @@ namespace TestLayer
 			Seasonal seasonalTest = _mapper.ViewModelToModel(viewHalloween);
 			Assert.Equal(1, seasonalTest.SeasonalId);
 			Assert.Equal("Halloween", seasonalTest.SeasonalName);
-			Assert.Equal(new DateTime(2021, 10, 25, 00, 00, 00), seasonalTest.SeasonalStartDate);
-			Assert.Equal(new DateTime(2021, 11, 01, 00, 00, 00), seasonalTest.SeasonalEndDate);
+			Assert.Equal(new DateTime(2021, 10, 25, 00, 00, 00, DateTimeKind.Utc), seasonalTest.SeasonalStartDate);
+			Assert.Equal(new DateTime(2021, 11, 01, 00, 00, 00, DateTimeKind.Utc), seasonalTest.SeasonalEndDate);
 		}
 
 		[Fact]
@@ -79,8 +72,8 @@ namespace TestLayer
 			ViewSeasonal viewSeasonalTest = _mapper.ModelToViewModel(halloween);
 			Assert.Equal(1, viewSeasonalTest.SeasonalId);
 			Assert.Equal("Halloween", viewSeasonalTest.SeasonalName);
-			Assert.Equal(new DateTime(2021, 10, 25, 00, 00, 00), viewSeasonalTest.SeasonalStartDate);
-			Assert.Equal(new DateTime(2021, 11, 01, 00, 00, 00), viewSeasonalTest.SeasonalEndDate);
+			Assert.Equal(new DateTime(2021, 10, 25, 00, 00, 00, DateTimeKind.Utc), viewSeasonalTest.SeasonalStartDate);
+			Assert.Equal(new DateTime(2021, 11, 01, 00, 00, 00, DateTimeKind.Utc), viewSeasonalTest.SeasonalEndDate);
 		}
 
 		[Fact]
@@ -98,8 +91,8 @@ namespace TestLayer
 			viewSeasonals.Add(viewHalloween);
 			viewSeasonals.Add(viewChristmas);
 			List<Seasonal> listTest = _mapper.ViewModelToModel(viewSeasonals);
-			Assert.Equal(halloween, listTest[0]);
-			Assert.Equal(christmas, listTest[1]);
+			Assert.Equal(halloween.SeasonalName, listTest[0].SeasonalName);
+			Assert.Equal(christmas.SeasonalName, listTest[1].SeasonalName);
 		}
 
 		[Fact]
@@ -108,26 +101,8 @@ namespace TestLayer
 			seasonals.Add(halloween);
 			seasonals.Add(christmas);
 			List<ViewSeasonal> listTest = _mapper.ModelToViewModel(seasonals);
-			Assert.Equal(viewHalloween, listTest[0]);
-			Assert.Equal(viewChristmas, listTest[1]);
-		}
-
-		[Fact]
-		public async void AddTest()
-		{
-			connection.Open();
-			using (var context = new ShopDbContext(Options))
-			{
-				context.Database.EnsureDeleted();
-				context.Database.EnsureCreated();
-
-			}
-			/*var dbContext = new ShopDbContext(Options); 
-			ViewSeasonal newSeason = await _repo.Add(viewHalloween);
-			Assert.Equal(viewHalloween.SeasonalId, newSeason.SeasonalId);
-			Assert.Equal(viewHalloween.SeasonalName, newSeason.SeasonalName);
-			Assert.Equal(viewHalloween.SeasonalStartDate, newSeason.SeasonalStartDate);
-			Assert.Equal(viewHalloween.SeasonalEndDate, newSeason.SeasonalEndDate);*/
+			Assert.Equal(viewHalloween.SeasonalName, listTest[0].SeasonalName);
+			Assert.Equal(viewChristmas.SeasonalName, listTest[1].SeasonalName);
 		}
 	}
 }
