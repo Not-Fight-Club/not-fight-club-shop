@@ -1,4 +1,4 @@
-using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using System.Collections.Generic;
@@ -51,20 +51,20 @@ namespace BusinessLayer.Mapper
       return products;
     }
 
-    public List<Product> ViewModelToModel(List<ViewProduct> obj)
-    {
-      List<Product> products = new List<Product>(obj.Count);
-      for (int i = 0; i < obj.Count; i++)
-      {
-        products[i].ProductId = obj[i].ProductId;
-        products[i].SeasonalId = obj[i].SeasonalId;
-        products[i].ProductName = obj[i].ProductName;
-        products[i].ProductPrice = obj[i].ProductPrice;
-        products[i].ProductDescription = obj[i].ProductDescription;
-        products[i].ProductDiscount = obj[i].ProductDiscount;
-
-      }
-      return products;
-    }
+        public List<Product> ViewModelToModel(List<ViewProduct> obj)
+        {
+            List<Product> products = new List<Product>(obj.Count);
+            for (int i = 0; i < obj.Count; i++)
+            {
+                products[i].ProductId = obj[i].ProductId;
+                products[i].SeasonalId = obj[i].SeasonalId;
+                products[i].ProductName = obj[i].ProductName;
+                products[i].ProductPrice = obj[i].ProductPrice;
+                products[i].ProductDescription = obj[i].ProductDescription;
+                products[i].ProductDiscount = obj[i].ProductDiscount;
+            }
+            return products;
+        }
+       
   }
 }

@@ -46,14 +46,19 @@ namespace BusinessLayer.Repo
       return _mapper.ModelToViewModel(userProducts);
     }
 
-		public List<ViewUserProduct> ReadAll(Guid id)
-		{
-			throw new NotImplementedException();
-		}
+
+    public async Task<List<ViewUserProduct>> ReadAll(Guid id)
+    {
+
+        List<UserProduct> products = await _dbContext.UserProducts.Where(u => u.UserId == id).Include("Product").ToListAsync();
+
+        return _mapper.ModelToViewModel(products);
+
+    } 
 
 		public Task<ViewUserProduct> Update(ViewUserProduct obj)
 		{
 			throw new NotImplementedException();
 		}
-	}
-}
+	}//Eoc
+}//EoN

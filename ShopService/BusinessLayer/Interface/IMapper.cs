@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BusinessLayer.Interface
 {
@@ -17,9 +17,11 @@ namespace BusinessLayer.Interface
     /// <param name="obj"> an entity model</param>
     /// <returns> a view model</returns>
     public Y ModelToViewModel(T obj);
+
     public List<T> ViewModelToModel(List<Y> obj);
 
     public List<Y> ModelToViewModel(List<T> obj);
+
 
   }
 }

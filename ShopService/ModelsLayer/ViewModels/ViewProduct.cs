@@ -27,7 +27,7 @@ namespace ModelsLayer.ViewModels
     public string ProductDescription { get; set; }
     public decimal? ProductDiscount { get; set; }
 
-    // public virtual Seasonal Seasonal { get; set; }
-    // public virtual ICollection<UserProduct> UserProducts { get; set; }
+    public virtual Seasonal Seasonal { get; set; }
+    public virtual ICollection<UserProduct> UserProducts { get; set; }
   }
 }
