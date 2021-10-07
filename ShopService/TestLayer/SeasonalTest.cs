@@ -10,17 +10,22 @@ using BusinessLayer.Repo;
 using Xunit;
 using DataLayerDbContext.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.Sqlite;
 
 namespace TestLayer
 {
 	public class SeasonalTest
 	{
+		private static SqliteConnection connection = new SqliteConnection("DataSource=:memory:");
 		private static DbContextOptions<ShopDbContext> Options = new DbContextOptionsBuilder<ShopDbContext>()
-			.UseInMemoryDatabase(databaseName: "TestDb")
+			.UseSqlite(connection)
 			.Options;
+		/*private static DbContextOptions<ShopDbContext> Options = new DbContextOptionsBuilder<ShopDbContext>()
+			.UseInMemoryDatabase(databaseName: "TestDb")
+			.Options;*/
 
 		private static readonly SeasonalMapper _mapper = new SeasonalMapper();
-		//private readonly SeasonRepo _repo = new SeasonRepo(Options, _mapper);
+		private readonly SeasonRepo _repo = new SeasonRepo(Options, _mapper);
 
 		private ViewSeasonal viewHalloween = new ViewSeasonal()
 		{
@@ -52,6 +57,11 @@ namespace TestLayer
 		};
 		private List<Seasonal> seasonals = new List<Seasonal>();
 		private List<ViewSeasonal> viewSeasonals = new List<ViewSeasonal>();
+
+		public SeasonalTest()
+		{
+			
+		}
 
 		[Fact]
 		public void CorrectMappingToEF()
@@ -102,15 +112,22 @@ namespace TestLayer
 			Assert.Equal(viewChristmas, listTest[1]);
 		}
 
-		/*[Fact]
+		[Fact]
 		public async void AddTest()
 		{
-			var dbContext = new ShopDbContext(Options); 
+			connection.Open();
+			using (var context = new ShopDbContext(Options))
+			{
+				context.Database.EnsureDeleted();
+				context.Database.EnsureCreated();
+
+			}
+			/*var dbContext = new ShopDbContext(Options); 
 			ViewSeasonal newSeason = await _repo.Add(viewHalloween);
 			Assert.Equal(viewHalloween.SeasonalId, newSeason.SeasonalId);
 			Assert.Equal(viewHalloween.SeasonalName, newSeason.SeasonalName);
 			Assert.Equal(viewHalloween.SeasonalStartDate, newSeason.SeasonalStartDate);
-			Assert.Equal(viewHalloween.SeasonalEndDate, newSeason.SeasonalEndDate);
-		}*/
+			Assert.Equal(viewHalloween.SeasonalEndDate, newSeason.SeasonalEndDate);*/
+		}
 	}
 }

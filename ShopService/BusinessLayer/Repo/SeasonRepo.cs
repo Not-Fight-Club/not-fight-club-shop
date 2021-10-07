@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Interface;
+using BusinessLayer.Mapper;
 using DataLayerDbContext.Models;
 using Microsoft.EntityFrameworkCore;
 using ModelsLayer.Models;
@@ -14,12 +15,18 @@ namespace BusinessLayer.Repo
 	public class SeasonRepo : IRepo<ViewSeasonal, int>
 	{
 		private readonly ShopDbContext _dbContext;
-
 		private readonly IMapper<Seasonal, ViewSeasonal> _mapper;
+		private readonly DbContextOptions<ShopDbContext> _options;
 
 		public SeasonRepo(ShopDbContext context, IMapper<Seasonal, ViewSeasonal> mapper)
 		{
 			_dbContext = context;
+			_mapper = mapper;
+		}
+
+		public SeasonRepo(DbContextOptions<ShopDbContext> options, SeasonalMapper mapper)
+		{
+			_options = options;
 			_mapper = mapper;
 		}
 

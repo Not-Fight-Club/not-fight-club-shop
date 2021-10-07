@@ -36,7 +36,8 @@ namespace ShopService.Controllers
 			return Ok(season);
 		}
 
-		// GET api/dates/2021-10-06
+		// GET api/date/2021-10-06
+		[HttpGet("{date}")]
 		public async Task<ActionResult<ViewSeasonal>> GetSeasonByDate(DateTime date)
 		{
 			ViewSeasonal season = await _repo2.Read(date);
