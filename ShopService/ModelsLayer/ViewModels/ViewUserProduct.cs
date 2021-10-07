@@ -10,7 +10,7 @@ namespace ModelsLayer.ViewModels
   public class ViewUserProduct
   {
     public ViewUserProduct() { }
-    public ViewUserProduct(int userProductId, Guid userId, int productId)
+    public ViewUserProduct(int userProductId, Guid? userId, int productId)
     {
       UserProductId = userProductId;
       UserId = userId;
