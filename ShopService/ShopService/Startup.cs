@@ -39,6 +39,9 @@ namespace ShopService
       services.AddSingleton<IMapper<Product, ViewProduct>, ProductMapper>();
       services.AddSingleton<IRepo<ViewUserProduct, int>, UserProductRepository>();
       services.AddSingleton<IMapper<UserProduct, ViewUserProduct>, UserProductMapper>();
+            services.AddSingleton<IRepo<ViewSeasonal, int>, SeasonRepo>();
+            services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonDateRepo>();
+            services.AddSingleton<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
             //added cors policy with orgin local host addresses
             services.AddCors((options) =>
             {

@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Repo
 {
-	public class SeasonRepo : IRepo<ViewSeasonal, int>
+	public class SeasonDateRepo : IRepo<ViewSeasonal, DateTime>
 	{
 		private readonly ShopDbContext _dbContext;
 
 		private readonly IMapper<Seasonal, ViewSeasonal> _mapper;
 
-		public SeasonRepo(ShopDbContext context, IMapper<Seasonal, ViewSeasonal> mapper)
+		public SeasonDateRepo(ShopDbContext context, IMapper<Seasonal, ViewSeasonal> mapper)
 		{
 			_dbContext = context;
 			_mapper = mapper;
@@ -37,18 +37,6 @@ namespace BusinessLayer.Repo
 
 			Seasonal newSeason = await _dbContext.Seasonals.FromSqlInterpolated($"select * from Seasonal where SeasonalName = {seasonal.SeasonalName}").FirstOrDefaultAsync();
 			return _mapper.ModelToViewModel(newSeason);
-		}
-
-		/// <summary>
-		/// Returns a season from the database
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
-		public async Task<ViewSeasonal> Read(int id)
-		{
-			Seasonal season = await _dbContext.Seasonals.FromSqlInterpolated($"select * from Seasonal where SeasonalId = {id}").FirstOrDefaultAsync();
-
-			return _mapper.ModelToViewModel(season);
 		}
 
 		/// <summary>
