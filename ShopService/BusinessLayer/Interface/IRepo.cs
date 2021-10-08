@@ -13,6 +13,8 @@ namespace BusinessLayer.Interface
 
     public Task<List<T>> ReadAll(Guid id);
 
+    public Task<T> ReadUser(Guid id);
+
     /// <summary>
     /// add something to the database
     /// </summary>

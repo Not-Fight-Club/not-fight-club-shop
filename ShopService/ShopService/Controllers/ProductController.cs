@@ -3,16 +3,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
-using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using Microsoft.Extensions.Logging;
+using ModelsLayer.Models;
+using DataLayerDbContext.Models;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ShopService.Controllers
 {
-    [Route("api/[controller]")]
+  [Route("api/[controller]")]
   public class ProductController : Controller
   {
 
@@ -28,17 +29,17 @@ namespace ShopService.Controllers
 
     // GET: api/values
     [HttpGet]
-    //public IEnumerable<Product> Get()
-    //{
-    //  using (ShopDbContext allProducts = new ShopDbContext())
-    //  {
-    //    return allProducts.Products.ToList();
-    //  }
-    //}
+    public IEnumerable<Product> Get()
+    {
+      using (ShopDbContext allProducts = new ShopDbContext())
+      {
+        return allProducts.Products.ToList();
+      }
+    }
 
     // GET api/values/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Product>> GetProductById(int id)
+    public async Task<ActionResult<ViewProduct>> GetProductById(int id)
     {
       ViewProduct product = await _repo.Read(id);
 

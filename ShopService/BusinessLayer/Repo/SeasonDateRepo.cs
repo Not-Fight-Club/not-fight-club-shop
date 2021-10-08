@@ -78,5 +78,9 @@ namespace BusinessLayer.Repo
       throw new NotImplementedException();
     }
 
+    public Task<ViewSeasonal> ReadUser(Guid id)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

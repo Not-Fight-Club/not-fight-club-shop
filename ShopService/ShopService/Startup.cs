@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using BusinessLayer.Interface;
 using BusinessLayer.Mapper;
 using BusinessLayer.Repo;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
@@ -40,7 +42,22 @@ namespace ShopService
       services.AddSingleton<IRepo<ViewSeasonal, int>, SeasonRepo>();
       services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonDateRepo>();
       services.AddSingleton<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
+
+      services.AddSingleton<IRepo<ViewUser, int>, UserRepository>();
       //added cors policy with orgin local host addresses
+      // services.AddHttpClient();
+      services.AddHttpClient(Options.DefaultName, configure =>
+            {
+              //configure.BaseAddress = new Uri(Configuration["CharactersApiURL"]);
+            }).ConfigurePrimaryHttpMessageHandler(() =>
+            {
+              return new HttpClientHandler
+              {
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, certChain, policyErrors) => true
+              };
+            });
+
       services.AddCors((options) =>
       {
         options.AddPolicy(name: "shop", builder =>
@@ -78,6 +95,7 @@ namespace ShopService
 
 
       services.AddControllers();
+
       services.AddControllers().AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
       services.AddSwaggerGen(c =>
