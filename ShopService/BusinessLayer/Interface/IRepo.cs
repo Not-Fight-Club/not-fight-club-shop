@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelsLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace BusinessLayer.Interface
   public interface IRepo<T, Y>
   {
 
-    public List<T> ReadAll(Guid id);
+    public Task<List<T>> ReadAll(Guid id);
 
     /// <summary>
     /// add something to the database

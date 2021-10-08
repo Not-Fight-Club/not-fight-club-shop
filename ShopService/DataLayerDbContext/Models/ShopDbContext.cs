@@ -9,11 +9,11 @@ namespace DataLayerDbContext.Models
 {
   public partial class ShopDbContext : DbContext
   {
-    public ShopDbContext()
-    {
-    }
+        public ShopDbContext()
+        {
+        }
 
-    public ShopDbContext(DbContextOptions<ShopDbContext> options)
+        public ShopDbContext(DbContextOptions<ShopDbContext> options)
         : base(options)
     {
     }
@@ -32,7 +32,7 @@ namespace DataLayerDbContext.Models
       }
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 

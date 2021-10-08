@@ -1,13 +1,12 @@
-using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using System.Collections.Generic;
-using System;
 
 
 namespace BusinessLayer.Mapper
 {
-  public class UserProductMapper : IMapper<UserProduct, ViewUserProduct>
+    public class UserProductMapper : IMapper<UserProduct, ViewUserProduct>
   {
     public ViewUserProduct ModelToViewModel(UserProduct userProduct)
     {
@@ -15,6 +14,7 @@ namespace BusinessLayer.Mapper
       viewUserProduct.UserProductId = userProduct.UserProductId;
       viewUserProduct.UserId = userProduct.UserId;
       viewUserProduct.ProductId = userProduct.ProductId;
+      viewUserProduct.Product = userProduct.Product;
 
       return viewUserProduct;
     }
@@ -25,6 +25,7 @@ namespace BusinessLayer.Mapper
       userProduct.UserProductId = viewUserProduct.UserProductId;
       userProduct.UserId = viewUserProduct.UserId;
       userProduct.ProductId = viewUserProduct.ProductId;
+      userProduct.Product = viewUserProduct.Product;
 
       return userProduct;
     }
@@ -38,6 +39,8 @@ namespace BusinessLayer.Mapper
         p.UserProductId = obj[i].UserProductId;
         p.UserId = obj[i].UserId;
         p.ProductId = obj[i].ProductId;
+        p.Product = obj[i].Product;
+        userProducts.Add(p);
 
       }
       return userProducts;
@@ -45,12 +48,14 @@ namespace BusinessLayer.Mapper
 
     public List<UserProduct> ViewModelToModel(List<ViewUserProduct> obj)
     {
-      List<UserProduct> userProducts = new List<UserProduct>(obj.Count);
+      List<UserProduct> userProducts = new List<UserProduct>();
       for (int i = 0; i < obj.Count; i++)
       {
+        userProducts.Add(new UserProduct());
         userProducts[i].UserProductId = obj[i].UserProductId;
         userProducts[i].UserId = obj[i].UserId;
         userProducts[i].ProductId = obj[i].ProductId;
+        userProducts[i].Product = obj[i].Product;
 
       }
       return userProducts;
