@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Repo
 {
-  public class SeasonRepo : IRepo<ViewSeasonal, int>
+  public class SeasonRepo : IRepo<ViewSeasonal, DateTime>
   {
-    private readonly ShopDbContext _dbContext = new ShopDbContext();
+    private readonly ShopDbContext _dbContext;
 
     private readonly IMapper<Seasonal, ViewSeasonal> _mapper;
 
-    public SeasonRepo(IMapper<Seasonal, ViewSeasonal> mapper)
+    public SeasonRepo(ShopDbContext context, IMapper<Seasonal, ViewSeasonal> mapper)
     {
-
+      _dbContext = context;
       _mapper = mapper;
     }
 
@@ -37,19 +37,9 @@ namespace BusinessLayer.Repo
       _dbContext.SaveChanges();
 
       Seasonal newSeason = await _dbContext.Seasonals.FromSqlInterpolated($"select * from Seasonal where SeasonalName = {seasonal.SeasonalName}").FirstOrDefaultAsync();
+      if (newSeason == null)
+        return null;
       return _mapper.ModelToViewModel(newSeason);
-    }
-
-    /// <summary>
-    /// Returns a season from the database
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task<ViewSeasonal> Read(int id)
-    {
-      Seasonal season = await _dbContext.Seasonals.FromSqlInterpolated($"select * from Seasonal where SeasonalId = {id}").FirstOrDefaultAsync();
-
-      return _mapper.ModelToViewModel(season);
     }
 
     /// <summary>
@@ -69,7 +59,7 @@ namespace BusinessLayer.Repo
 		/// <returns></returns>
 		public async Task<ViewSeasonal> Read(DateTime date)
 		{
-			Seasonal season = await _dbContext.Seasonals.FromSqlInterpolated($"select * from Seasonal where SeasonalStartDate > {date} AND SeasonalEndDate < {date}").FirstOrDefaultAsync();
+			Seasonal season = await _dbContext.Seasonals.FromSqlInterpolated($"select * from Seasonal where {date} > SeasonalStartDate AND {date} < SeasonalEndDate").FirstOrDefaultAsync();
 			return _mapper.ModelToViewModel(season);
 		}
 
