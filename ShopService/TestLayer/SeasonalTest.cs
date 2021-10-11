@@ -37,7 +37,7 @@ namespace TestLayer
 						.UseSqlite(CreateInMemoryDatabase())
 						.Options;
 			_context = new ShopDbContext(Options);
-			_repo = new SeasonRepo(_context, _mapper);
+			//_repo = new SeasonRepo(_context, _mapper);
 			Seed();
 		}
 
