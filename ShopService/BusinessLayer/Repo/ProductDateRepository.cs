@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Repo
 {
-  public class ProductRepository : IRepo<ViewProduct, int>
+  public class ProductDateRepository : IRepo<ViewProduct, DateTime>
   {
     private readonly ShopDbContext _dbContext = new ShopDbContext();
 
     private readonly IMapper<Product, ViewProduct> _mapper;
 
-    public ProductRepository(IMapper<Product, ViewProduct> mapper)
+    public ProductDateRepository(IMapper<Product, ViewProduct> mapper)
     {
       _mapper = mapper;
     }
@@ -33,14 +33,12 @@ namespace BusinessLayer.Repo
       return _mapper.ModelToViewModel(newProduct);
     }
 
-    public async Task<ViewProduct> Read(int id)
+    public async Task<ViewProduct> Read(DateTime obj)
     {
-      Product product = await _dbContext.Products.FromSqlInterpolated($"select * from Product where ProductId = {id}").FirstOrDefaultAsync();
-
-      return _mapper.ModelToViewModel(product);
+      throw new NotImplementedException();
     }
 
-    public async Task<List<ViewProduct>> Read(DateTime date)
+    public async Task<List<ViewProduct>> ReadFromDate(DateTime date)
     {
       List<Product> products = await _dbContext.Products.FromSqlInterpolated($"execute GetAllSeasonalItems {date}").ToListAsync();
       return _mapper.ModelToViewModel(products);
@@ -58,10 +56,6 @@ namespace BusinessLayer.Repo
 			throw new NotImplementedException();
 		}
 
-		public Task<List<ViewProduct>> ReadFromDate(DateTime date)
-		{
-			throw new NotImplementedException();
-		}
 
 		public Task<ViewProduct> Update(ViewProduct obj)
 		{

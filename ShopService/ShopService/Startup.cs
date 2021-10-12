@@ -34,6 +34,7 @@ namespace ShopService
     {
       services.AddDbContext<ShopDbContext>();
       services.AddSingleton<IRepo<ViewProduct, int>, ProductRepository>();
+      services.AddSingleton<IRepo<ViewProduct, DateTime>, ProductDateRepository>();
       services.AddSingleton<IMapper<Product, ViewProduct>, ProductMapper>();
       services.AddSingleton<IRepo<ViewUserProduct, int>, UserProductRepository>();
       services.AddSingleton<IMapper<UserProduct, ViewUserProduct>, UserProductMapper>();

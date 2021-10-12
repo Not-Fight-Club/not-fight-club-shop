@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using Microsoft.Extensions.Logging;
+using System;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,16 +19,19 @@ namespace ShopService.Controllers
 
     private readonly IRepo<ViewProduct, int> _repo;
 
+    private readonly IRepo<ViewProduct, DateTime> _repo2;
+
     private readonly ILogger<ProductController> _logger;
 
-    public ProductController(IRepo<ViewProduct, int> repo, ILogger<ProductController> logger)
+    public ProductController(IRepo<ViewProduct, int> repo, IRepo<ViewProduct, DateTime> repo2, ILogger<ProductController> logger)
     {
       _repo = repo;
+      _repo2 = repo2;
       _logger = logger;
     }
 
     // GET: api/values
-    [HttpGet]
+    //[HttpGet]
     //public IEnumerable<Product> Get()
     //{
     //  using (ShopDbContext allProducts = new ShopDbContext())
@@ -35,6 +39,13 @@ namespace ShopService.Controllers
     //    return allProducts.Products.ToList();
     //  }
     //}
+
+    // GET: api/values/date/date
+    [HttpGet("date/{date}")]
+    public Task<List<ViewProduct>> Get(DateTime date)
+    {
+      return _repo2.ReadFromDate(date);
+    }
 
     // GET api/values/5
     [HttpGet("{id}")]

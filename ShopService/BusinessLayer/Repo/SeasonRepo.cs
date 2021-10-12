@@ -88,5 +88,9 @@ namespace BusinessLayer.Repo
       throw new NotImplementedException();
     }
 
-  }//EoC
+		public Task<List<ViewProduct>> ReadFromDate(DateTime date)
+		{
+			throw new NotImplementedException();
+		}
+	}//EoC
 }//EoN
