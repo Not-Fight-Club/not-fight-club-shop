@@ -19,32 +19,26 @@ namespace ShopService.Controllers
 
     private readonly IRepo<ViewProduct, int> _repo;
 
-    private readonly IRepo<ViewProduct, DateTime> _repo2;
-
     private readonly ILogger<ProductController> _logger;
 
-    public ProductController(IRepo<ViewProduct, int> repo, IRepo<ViewProduct, DateTime> repo2, ILogger<ProductController> logger)
+    public ProductController(IRepo<ViewProduct, int> repo, ILogger<ProductController> logger)
     {
       _repo = repo;
-      _repo2 = repo2;
       _logger = logger;
     }
 
     // GET: api/values
-    //[HttpGet]
-    //public IEnumerable<Product> Get()
-    //{
-    //  using (ShopDbContext allProducts = new ShopDbContext())
-    //  {
-    //    return allProducts.Products.ToList();
-    //  }
-    //}
-
-    // GET: api/values/date/date
-    [HttpGet("date/{date}")]
-    public Task<List<ViewProduct>> Get(DateTime date)
+    [HttpGet]
+    public Task<List<ViewProduct>> Get()
     {
-      return _repo2.ReadFromDate(date);
+      return _repo.Read();
+    }
+
+    // GET: api/values/season/1
+    [HttpGet("season/{seasonId}")]
+    public Task<List<ViewProduct>> Get(int seasonId)
+    {
+      return _repo.ReadFromSeason(seasonId);
     }
 
     // GET api/values/5

@@ -88,7 +88,7 @@ namespace BusinessLayer.Repo
       throw new NotImplementedException();
     }
 
-		public Task<List<ViewProduct>> ReadFromDate(DateTime date)
+		public Task<List<ViewProduct>> ReadFromSeason(DateTime date)
 		{
 			throw new NotImplementedException();
 		}
