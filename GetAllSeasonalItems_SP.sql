@@ -22,5 +22,5 @@ BEGIN
 END
 GO
 
---Cirnoizing the world
-EXECUTE GetAllSeasonalItems '10-5-2021';
+--Execute the procedure
+EXECUTE GetAllSeasonalItems '10-05-2021';

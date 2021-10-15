@@ -26,8 +26,16 @@ namespace ShopService.Controllers
       return _repo.Read();
     }
 
-		// GET api/date/2021-10-06
-		[HttpGet("{date}")]
+    [HttpGet("now")]
+    public async Task<ActionResult<ViewSeasonal>> GetCurrentSeason()
+    {
+      DateTime date = DateTime.Now;
+      ViewSeasonal season = await _repo.Read(date);
+      return Ok(season);
+    }
+
+    // GET api/date/2021-10-06
+    [HttpGet("{date}")]
 		public async Task<ActionResult<ViewSeasonal>> GetSeasonByDate(DateTime date)
 		{
 			ViewSeasonal season = await _repo.Read(date);
