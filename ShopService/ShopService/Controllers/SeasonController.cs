@@ -12,13 +12,11 @@ namespace ShopService.Controllers
   [Route("api/[controller]")]
   public class SeasonController : Controller
   {
-    private readonly IRepo<ViewSeasonal, int> _repo;
-    private readonly IRepo<ViewSeasonal, DateTime> _repo2;
+    private readonly IRepo<ViewSeasonal, DateTime> _repo;
 
-    public SeasonController(IRepo<ViewSeasonal, int> repo, IRepo<ViewSeasonal, DateTime> repo2)
+    public SeasonController(IRepo<ViewSeasonal, DateTime> repo)
     {
       _repo = repo;
-      _repo2 = repo2;
     }
 
     // GET: api/values
@@ -28,21 +26,21 @@ namespace ShopService.Controllers
       return _repo.Read();
     }
 
-    // GET api/values/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<ViewSeasonal>> GetSeasonById(int id)
+    [HttpGet("now")]
+    public async Task<ActionResult<ViewSeasonal>> GetCurrentSeason()
     {
-      ViewSeasonal season = await _repo.Read(id);
+      DateTime date = DateTime.Now;
+      ViewSeasonal season = await _repo.Read(date);
       return Ok(season);
     }
 
-    // GET api/dates/2021-10-06
+    // GET api/date/2021-10-06
     [HttpGet("{date}")]
-    public async Task<ActionResult<ViewSeasonal>> GetSeasonByDate(DateTime date)
-    {
-      ViewSeasonal season = await _repo2.Read(date);
-      return Ok(season);
-    }
+		public async Task<ActionResult<ViewSeasonal>> GetSeasonByDate(DateTime date)
+		{
+			ViewSeasonal season = await _repo.Read(date);
+			return Ok(season);
+		}
 
     // POST api/values
     [HttpPost]

@@ -40,6 +40,14 @@ namespace BusinessLayer.Repo
       return _mapper.ModelToViewModel(product);
     }
 
+    public async Task<List<ViewProduct>> ReadFromSeason(int seasonId)
+    {
+      List<Product> products = await _dbContext.Products.FromSqlInterpolated($"SELECT * FROM Product WHERE SeasonalId = {seasonId}").ToListAsync();
+      List<ViewProduct> viewProducts = _mapper.ModelToViewModel(products);
+      return viewProducts;
+    }
+
+
     public async Task<List<ViewProduct>> Read()
     {
       List<Product> products = await _dbContext.Products.ToListAsync();
@@ -50,7 +58,6 @@ namespace BusinessLayer.Repo
 		{
 			throw new NotImplementedException();
 		}
-
 
 		public Task<ViewProduct> Update(ViewProduct obj)
 		{

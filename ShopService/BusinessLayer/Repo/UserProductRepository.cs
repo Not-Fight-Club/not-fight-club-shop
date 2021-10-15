@@ -54,7 +54,12 @@ namespace BusinessLayer.Repo
 
         return _mapper.ModelToViewModel(products);
 
-    } 
+    }
+
+		public Task<List<ViewProduct>> ReadFromSeason(int seasonId)
+		{
+			throw new NotImplementedException();
+		}
 
 		public Task<ViewUserProduct> Update(ViewUserProduct obj)
 		{
