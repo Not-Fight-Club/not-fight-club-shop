@@ -1,5 +1,4 @@
 using System;
-using System.Net.Http;
 using BusinessLayer.Interface;
 using BusinessLayer.Mapper;
 using BusinessLayer.Repo;
@@ -13,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
@@ -39,55 +37,38 @@ namespace ShopService
       services.AddSingleton<IMapper<Product, ViewProduct>, ProductMapper>();
       services.AddSingleton<IRepo<ViewUserProduct, int>, UserProductRepository>();
       services.AddSingleton<IMapper<UserProduct, ViewUserProduct>, UserProductMapper>();
-      services.AddSingleton<IRepo<ViewSeasonal, int>, SeasonRepo>();
-      services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonDateRepo>();
+      services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonRepo>();
       services.AddSingleton<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
-
-      services.AddSingleton<IRepo<ViewUser, int>, UserRepository>();
       //added cors policy with orgin local host addresses
-      // services.AddHttpClient();
-      services.AddHttpClient(Options.DefaultName, configure =>
-            {
-              //configure.BaseAddress = new Uri(Configuration["CharactersApiURL"]);
-            }).ConfigurePrimaryHttpMessageHandler(() =>
-            {
-              return new HttpClientHandler
-              {
-                ClientCertificateOptions = ClientCertificateOption.Manual,
-                ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, certChain, policyErrors) => true
-              };
-            });
-
       services.AddCors((options) =>
       {
         options.AddPolicy(name: "shop", builder =>
                {
-                 builder.WithOrigins(
+             builder.WithOrigins(
 
-                     "https://localhost:5000",
-                     "https://localhost:5002",
-                     "https://localhost:5004",
-                     "https://localhost:5006",
-                     "https://localhost:5008",
-                     "https://localhost:5010",
-
-
-                     "http://localhost:4200",
-                     "http://localhost:5001",
-                     "http://localhost:5003",
-                     "http://localhost:5005",
-                     "http://localhost:5007",
-                     "http://localhost:5009",
-                     "http://localhost:5011"
+                 "https://localhost:5000",
+                 "https://localhost:5002",
+                 "https://localhost:5004",
+                 "https://localhost:5006",
+                 "https://localhost:5008",
+                 "https://localhost:5010",
 
 
+                 "http://localhost:4200",
+                 "http://localhost:5001",
+                 "http://localhost:5003",
+                 "http://localhost:5005",
+                 "http://localhost:5007",
+                 "http://localhost:5009",
+                 "http://localhost:5011"
 
-                     )
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+
+                 )
+              .AllowAnyHeader()
+              .AllowAnyMethod();
 
 
-               });
+           });
 
 
       });
@@ -95,7 +76,6 @@ namespace ShopService
 
 
       services.AddControllers();
-
       services.AddControllers().AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
       services.AddSwaggerGen(c =>
@@ -109,8 +89,8 @@ namespace ShopService
       {
         if (!options.IsConfigured)
         {
-          // options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
-          options.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = ShopDb; Trusted_Connection = True;");
+                // options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
+                options.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = ShopDb; Trusted_Connection = True;");
         }
       });//end dbcontext dependency
 

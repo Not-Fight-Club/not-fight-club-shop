@@ -60,6 +60,11 @@ namespace BusinessLayer.Repo
 
     }
 
+    public Task<List<ViewProduct>> ReadFromSeason(int seasonId)
+    {
+      throw new NotImplementedException();
+    }
+
     public Task<ViewUserProduct> Update(ViewUserProduct obj)
     {
       throw new NotImplementedException();

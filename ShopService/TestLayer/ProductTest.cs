@@ -36,6 +36,7 @@ namespace TestLayer
 
     }
 
+    [Fact]
     public void ViewModelMappingTest()
     {
       //Arrange
