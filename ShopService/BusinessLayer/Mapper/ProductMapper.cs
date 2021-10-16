@@ -1,4 +1,4 @@
-using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using System.Collections.Generic;
@@ -46,7 +46,7 @@ namespace BusinessLayer.Mapper
         p.ProductPrice = obj[i].ProductPrice;
         p.ProductDescription = obj[i].ProductDescription;
         p.ProductDiscount = obj[i].ProductDiscount;
-
+        products.Add(p);
       }
       return products;
     }
@@ -62,7 +62,6 @@ namespace BusinessLayer.Mapper
         products[i].ProductPrice = obj[i].ProductPrice;
         products[i].ProductDescription = obj[i].ProductDescription;
         products[i].ProductDiscount = obj[i].ProductDiscount;
-
       }
       return products;
     }

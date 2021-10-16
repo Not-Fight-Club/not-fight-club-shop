@@ -40,13 +40,21 @@ namespace BusinessLayer.Repo
       return _mapper.ModelToViewModel(product);
     }
 
+    public async Task<List<ViewProduct>> ReadFromSeason(int seasonId)
+    {
+      List<Product> products = await _dbContext.Products.FromSqlInterpolated($"SELECT * FROM Product WHERE SeasonalId = {seasonId}").ToListAsync();
+      List<ViewProduct> viewProducts = _mapper.ModelToViewModel(products);
+      return viewProducts;
+    }
+
+
     public async Task<List<ViewProduct>> Read()
     {
       List<Product> products = await _dbContext.Products.ToListAsync();
       return _mapper.ModelToViewModel(products);
     }
 
-		public List<ViewProduct> ReadAll(Guid id)
+		public Task<List<ViewProduct>> ReadAll(Guid id)
 		{
 			throw new NotImplementedException();
 		}
@@ -55,5 +63,5 @@ namespace BusinessLayer.Repo
 		{
 			throw new NotImplementedException();
 		}
-	}
-}
+	}// Eoc
+}//EoN

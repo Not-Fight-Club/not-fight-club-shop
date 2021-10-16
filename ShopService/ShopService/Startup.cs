@@ -1,3 +1,4 @@
+using System;
 using BusinessLayer.Interface;
 using BusinessLayer.Mapper;
 using BusinessLayer.Repo;
@@ -14,19 +15,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace ShopService
 {
-  public class Startup
+    public class Startup
   {
-    public Startup(IConfiguration configuration)
+    public Startup(IConfiguration configuration )
     {
       Configuration = configuration;
+      
     }
 
     public IConfiguration Configuration { get; }
@@ -39,8 +37,7 @@ namespace ShopService
       services.AddSingleton<IMapper<Product, ViewProduct>, ProductMapper>();
       services.AddSingleton<IRepo<ViewUserProduct, int>, UserProductRepository>();
       services.AddSingleton<IMapper<UserProduct, ViewUserProduct>, UserProductMapper>();
-            services.AddSingleton<IRepo<ViewSeasonal, int>, SeasonRepo>();
-            services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonDateRepo>();
+            services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonRepo>();
             services.AddSingleton<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
             //added cors policy with orgin local host addresses
             services.AddCors((options) =>
@@ -48,10 +45,23 @@ namespace ShopService
                 options.AddPolicy(name: "shop", builder =>
                  {
                      builder.WithOrigins(
-                   "http:localhost4200:",
-                   "https:localhost:5001",
-                   "https:localhost:5000",
-                   "http:localhost:5000"
+                   
+                   "https://localhost:5000",
+                   "https://localhost:5002",
+                   "https://localhost:5004",
+                   "https://localhost:5006",
+                   "https://localhost:5008",
+                   "https://localhost:5010",
+                   
+
+                   "http://localhost:4200",
+                   "http://localhost:5001",
+                   "http://localhost:5003",
+                   "http://localhost:5005",
+                   "http://localhost:5007",
+                   "http://localhost:5009",
+                   "http://localhost:5011"
+
 
                    )
                 .AllowAnyHeader()
@@ -66,7 +76,9 @@ namespace ShopService
 
 
       services.AddControllers();
-      services.AddSwaggerGen(c =>
+      services.AddControllers().AddNewtonsoftJson(options =>
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopService", Version = "v1" });
       });
@@ -77,7 +89,8 @@ namespace ShopService
             {
                 if (!options.IsConfigured)
                 {
-                    options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
+                    // options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
+                    options.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = ShopDb; Trusted_Connection = True;");
                 }
             });//end dbcontext dependency
             

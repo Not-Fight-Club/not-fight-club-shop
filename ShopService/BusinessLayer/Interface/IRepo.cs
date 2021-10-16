@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModelsLayer.Models;
+using ModelsLayer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,7 @@ namespace BusinessLayer.Interface
   public interface IRepo<T, Y>
   {
 
-    public List<T> ReadAll(Guid id);
+    public Task<List<T>> ReadAll(Guid id);
 
     /// <summary>
     /// add something to the database
@@ -38,5 +40,6 @@ namespace BusinessLayer.Interface
     /// <param name="obj"> the objecte that you want to edit in the database</param>
     /// <returns></returns>
     public Task<T> Update(T obj);
-  }
+		Task<List<ViewProduct>> ReadFromSeason(Y obj);
+	}
 }

@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataLayerDbContext.Models;
 using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using Microsoft.Extensions.Logging;
+using System;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ShopService.Controllers
 {
-  [Route("api/[controller]")]
+    [Route("api/[controller]")]
   public class ProductController : Controller
   {
 
@@ -30,12 +29,16 @@ namespace ShopService.Controllers
 
     // GET: api/values
     [HttpGet]
-    public IEnumerable<Product> Get()
+    public Task<List<ViewProduct>> Get()
     {
-      using (ShopDbContext allProducts = new ShopDbContext())
-      {
-        return allProducts.Products.ToList();
-      }
+      return _repo.Read();
+    }
+
+    // GET: api/values/season/1
+    [HttpGet("season/{seasonId}")]
+    public Task<List<ViewProduct>> Get(int seasonId)
+    {
+      return _repo.ReadFromSeason(seasonId);
     }
 
     // GET api/values/5
