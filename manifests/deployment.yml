@@ -16,4 +16,4 @@ spec:
         - name: shop 
           image: p3fightclub.azurecr.io/shop
           ports:
-          - containerPort: 5002
+          - containerPort: 5009
