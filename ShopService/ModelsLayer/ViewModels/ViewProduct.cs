@@ -29,7 +29,7 @@ namespace ModelsLayer.ViewModels
     public decimal? ProductDiscount { get; set; }
     public int? CategoryId { get; set; }
 
-    public string Category { get; set; }
+    public string? Category { get; set; }
 
 
     //public virtual Category Category { get; set; }

@@ -26,7 +26,7 @@ namespace BusinessLayer.Repo
     {
       Product product = _mapper.ViewModelToModel(viewProduct);
 
-      _dbContext.Database.ExecuteSqlInterpolated($"Insert into Product(SeasonalId, ProductName, ProductPrice, ProductDescription, ProductDiscount) values({product.SeasonalId},{product.ProductName},{product.ProductPrice},{product.ProductDescription},{product.ProductDiscount})");
+      _dbContext.Database.ExecuteSqlInterpolated($"Insert into Product(SeasonalId, ProductName, ProductPrice, ProductDescription, ProductDiscount, CategoryId) values({product.SeasonalId},{product.ProductName},{product.ProductPrice},{product.ProductDescription},{product.ProductDiscount}, {product.CategoryId})");
       
 
       Product newProduct = await _dbContext.Products.FromSqlInterpolated($"select * from Product where ProductName = {product.ProductName}").FirstOrDefaultAsync();

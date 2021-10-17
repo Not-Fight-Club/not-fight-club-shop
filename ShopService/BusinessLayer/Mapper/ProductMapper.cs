@@ -18,9 +18,13 @@ namespace BusinessLayer.Mapper
       viewProduct.ProductDescription = product.ProductDescription;
       viewProduct.ProductDiscount = product.ProductDiscount;
       viewProduct.CategoryId = product.CategoryId;
-      viewProduct.Category = product.Category.category;
+            if(product.Category != null)
+            {
+                viewProduct.Category = product.Category.category;
 
-      return viewProduct;
+            }
+
+            return viewProduct;
     }
 
     public Product ViewModelToModel(ViewProduct viewProduct)
@@ -33,6 +37,17 @@ namespace BusinessLayer.Mapper
       product.ProductDescription = viewProduct.ProductDescription;
       product.ProductDiscount = viewProduct.ProductDiscount;
       product.CategoryId = viewProduct.CategoryId;
+
+            //build a category object to attach to the product
+            Category cat = new Category();
+            if(viewProduct.CategoryId != null)
+            {
+                cat.CategoryId = (int)viewProduct.CategoryId;
+                cat.category = viewProduct.Category;
+                product.Category = cat;
+            }
+            
+           
 
       return product;
     }
