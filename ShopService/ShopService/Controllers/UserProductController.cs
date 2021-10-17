@@ -49,33 +49,32 @@ namespace ShopService.Controllers
       return Ok(userProduct);
     }
 
-    [HttpPost()]
-    public async Task<ActionResult<ViewUserProduct>> Post([FromBody] ViewUser user, ViewProduct product)
+    [HttpPost("{userId}")]
+    public async Task<ActionResult<ViewUserProduct>> Post(Guid userId, [FromBody] ViewProduct product)
     {
       if (!ModelState.IsValid) return BadRequest("Invalid data.");
       //should be able to get bucks from user table
       // ViewUser ur = await _pro.Read(userProduct.UserId);
       // bucks = ur.buck
-      // var bucks = 0;
-      // ViewProduct pr = await _pro.Read(userProduct.ProductId);
+      // var bucks = 0; 
 
       var discountedPrice = Discount.DiscountedCost(product.ProductPrice, product.ProductDiscount);
 
-
-      if (discountedPrice > user.Bucks)
-      {
-        _logger.LogInformation($"Not enough bucks to purchase");
-        return NotFound($"Not enough money");
-      }
-      else
-      {
-        ViewUserProduct up = new ViewUserProduct(0, user.UserId, product.ProductId);
+        //Do we still need this if user bucks are decremented in the front-end
+      //if (discountedPrice > user.Bucks)
+      //{
+      //  _logger.LogInformation($"Not enough bucks to purchase");
+      //  return NotFound($"Not enough money");
+      //}
+      //else
+      //{
+       ViewUserProduct up = new ViewUserProduct(0, userId, product.ProductId);
 
         var newUserProduct = await _repo.Add(up);
         _logger.LogInformation($"User with user id: {newUserProduct.UserId} purchased {product.ProductName}");
 
         return Ok(newUserProduct);
-      }
+      //}
 
 
 
