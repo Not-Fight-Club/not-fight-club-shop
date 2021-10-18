@@ -58,6 +58,11 @@ namespace DataLayerDbContext.Models
                   .WithMany(p => p.Products)
                   .HasForeignKey(d => d.SeasonalId)
                   .HasConstraintName("FK__Product__Seasona__25869641");
+
+        entity.HasOne(f => f.Category)
+                  .WithMany(p => p.Products)
+                  .HasForeignKey(f => f.CategoryId)
+                  .HasConstraintName("FK__Product__Categor__48CFD27E");
       });
 
       modelBuilder.Entity<Seasonal>(entity =>
@@ -70,7 +75,17 @@ namespace DataLayerDbContext.Models
                   .IsUnicode(false);
       });
 
-      modelBuilder.Entity<UserProduct>(entity =>
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.ToTable("Category");
+
+            entity.Property(e => e.category)
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true);
+        });
+
+            modelBuilder.Entity<UserProduct>(entity =>
       {
         entity.ToTable("UserProduct");
 
