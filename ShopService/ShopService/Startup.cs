@@ -1,3 +1,4 @@
+
 using System;
 using BusinessLayer.Interface;
 using BusinessLayer.Mapper;
@@ -19,12 +20,12 @@ using ModelsLayer.ViewModels;
 
 namespace ShopService
 {
-    public class Startup
+  public class Startup
   {
-    public Startup(IConfiguration configuration )
+    public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
-      
+
     }
 
     public IConfiguration Configuration { get; }
@@ -37,69 +38,67 @@ namespace ShopService
       services.AddSingleton<IMapper<Product, ViewProduct>, ProductMapper>();
       services.AddSingleton<IRepo<ViewUserProduct, int>, UserProductRepository>();
       services.AddSingleton<IMapper<UserProduct, ViewUserProduct>, UserProductMapper>();
-            // services.AddSingleton<IRepo<ViewSeasonal, int>, SeasonRepo>();
-            // services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonDateRepo>();
-            services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonRepo>();
-            services.AddSingleton<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
-            //added cors policy with orgin local host addresses
-            services.AddCors((options) =>
-            {
-                options.AddPolicy(name: "shop", builder =>
-                 {
-                     builder.WithOrigins(
-                   
-                   "https://localhost:5000",
-                   "https://localhost:5002",
-                   "https://localhost:5004",
-                   "https://localhost:5006",
-                   "https://localhost:5008",
-                   "https://localhost:5010",
-                   
+      services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonRepo>();
+      services.AddSingleton<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
+      //added cors policy with orgin local host addresses
+      services.AddCors((options) =>
+      {
+        options.AddPolicy(name: "shop", builder =>
+               {
+             builder.WithOrigins(
 
-                   "http://localhost:4200",
-                   "http://localhost:5001",
-                   "http://localhost:5003",
-                   "http://localhost:5005",
-                   "http://localhost:5007",
-                   "http://localhost:5009",
-                   "http://localhost:5011"
+                 "https://localhost:5000",
+                 "https://localhost:5002",
+                 "https://localhost:5004",
+                 "https://localhost:5006",
+                 "https://localhost:5008",
+                 "https://localhost:5010",
 
 
-                   )
-                .AllowAnyHeader()
-                .AllowAnyMethod();
+                 "http://localhost:4200",
+                 "http://localhost:5001",
+                 "http://localhost:5003",
+                 "http://localhost:5005",
+                 "http://localhost:5007",
+                 "http://localhost:5009",
+                 "http://localhost:5011"
 
 
-                  });
-       
+                 )
+              .AllowAnyHeader()
+              .AllowAnyMethod();
 
-            });
+
+           });
+
+
+      });
 
 
 
       services.AddControllers();
       services.AddControllers().AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddSwaggerGen(c =>
+      services.AddSwaggerGen(c =>
+{
+  c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopService", Version = "v1" });
+});
+
+
+      //added dbcontext dependency
+      services.AddDbContext<ShopDbContext>(options =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopService", Version = "v1" });
-      });
-
-
-            //added dbcontext dependency
-            services.AddDbContext<ShopDbContext>(options =>
-            {
-                if (!options.IsConfigured)
-                {
-                    // options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
-                    options.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = ShopDb; Trusted_Connection = True;");
-                }
-            });//end dbcontext dependency
-            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
-
-
-
+        if (!options.IsConfigured)
+        {
+                // options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
+                options.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = ShopDb; Trusted_Connection = True;");
         }
+      });//end dbcontext dependency
+      services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
+
+
+
+    }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -130,3 +129,4 @@ namespace ShopService
     }
   }
 }
+
