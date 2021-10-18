@@ -15,7 +15,9 @@ SeasonalId int FOREIGN KEY REFERENCES Seasonal (SeasonalId),
 ProductName varchar(50) not null,
 ProductPrice decimal(19,4) not null,
 ProductDescription varchar(100) not null,
-ProductDiscount decimal (19,4)
+ProductDiscount decimal (19,4),
+CategoryId int not null,
+Category nvarchar(50)
 )
 
 ALTER TABLE Product
