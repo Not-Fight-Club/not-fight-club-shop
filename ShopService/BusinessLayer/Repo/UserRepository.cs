@@ -74,5 +74,10 @@ namespace BusinessLayer.Repo
       throw new NotImplementedException();
     }
 
+    public Task<List<ViewProduct>> ReadFromSeason(int seasonId)
+    {
+      throw new NotImplementedException();
+    }
+
   }
 }
