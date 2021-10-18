@@ -93,6 +93,7 @@ namespace ShopService
                 options.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = ShopDb; Trusted_Connection = True;");
         }
       });//end dbcontext dependency
+      services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 
 
 
