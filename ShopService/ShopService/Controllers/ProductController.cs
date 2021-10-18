@@ -21,6 +21,8 @@ namespace ShopService.Controllers
 
     private readonly IRepo<ViewProduct, int> _repo;
 
+    private readonly IRepo<ViewUserProduct, int> _upRepo;
+
     private readonly ILogger<ProductController> _logger;
 
     public ProductController(IRepo<ViewProduct, int> repo, ILogger<ProductController> logger)
@@ -62,6 +64,15 @@ namespace ShopService.Controllers
       var newProduct = await _repo.Add(product);
 
       _logger.LogInformation($"{newProduct.ProductName} was added to product list.");
+
+            //send the newProduct id number and the userId to the user product repo
+            //ViewUserProduct up = new();
+            //up.UserId = userId;
+            //up.ProductId = newProduct.ProductId;
+            //up.Product = newProduct;
+           
+            
+            //var userProduct = await _upRepo.Add(up);
       return Ok(newProduct);
 
     }
