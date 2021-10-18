@@ -54,14 +54,19 @@ namespace BusinessLayer.Repo
             throw new NotImplementedException();
         }
 
-        public Task<List<ViewProduct>> ReadFromSeason(int obj)
-        {
-            throw new NotImplementedException();
-        }
+    public Task<ViewProduct> ReadUser(Guid id)
+    {
+      throw new NotImplementedException();
+    }
+    public Task<List<ViewProduct>> ReadAll(Guid id)
+    {
+      throw new NotImplementedException();
+    }
 
-        public Task<ViewProduct> Update(ViewProduct obj)
-        {
-            throw new NotImplementedException();
-        }
-    }// Eoc
+
+    public Task<ViewProduct> Update(ViewProduct obj)
+    {
+      throw new NotImplementedException();
+    }
+  }// Eoc
 }//EoN
