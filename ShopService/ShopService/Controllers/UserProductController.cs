@@ -55,8 +55,10 @@ namespace ShopService.Controllers
       return Ok(userProduct);
     }
 
+
     [HttpPost("{id}")]
     public async Task<ActionResult<ViewUserProduct>> Post([FromBody] ViewProduct product, Guid id)
+
     {
       _logger.LogInformation("I'm here");
       _logger.LogInformation($"{id}");
@@ -100,11 +102,14 @@ namespace ShopService.Controllers
       //should be able to get bucks from user table
       // ViewUser ur = await http.get().Read(userId); call userservice
       // bucks = ur.buck
+
       // var bucks = 0;
       // ViewProduct pr = await _productRepo.Read(productId);
 
+
       var discountedPrice = Discount.DiscountedCost(product.ProductPrice, product.ProductDiscount);
       // ViewUserProduct pp = new ViewUserProduct();
+
 
       // return Ok(pp);
       if (discountedPrice > user.Bucks)
@@ -115,6 +120,7 @@ namespace ShopService.Controllers
       else
       {
         ViewUserProduct up = new ViewUserProduct(0, user.UserId, product.ProductId);
+
 
         var newUserProduct = await _repo.Add(up);
         _logger.LogInformation($"{user.UserName} purchased {product.ProductName}");
