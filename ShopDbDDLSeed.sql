@@ -15,7 +15,13 @@ SeasonalId int FOREIGN KEY REFERENCES Seasonal (SeasonalId),
 ProductName varchar(50) not null,
 ProductPrice decimal(19,4) not null,
 ProductDescription varchar(100) not null,
-ProductDiscount decimal (19,4)
+ProductDiscount decimal (19,4),
+CategoryId int FOREIGN KEY REFERENCES Category (CategoryId)
+)
+
+create table Category(
+CategoryId int not null identity (1,1) primary key,
+Category nvarchar(50)
 )
 
 ALTER TABLE Product
