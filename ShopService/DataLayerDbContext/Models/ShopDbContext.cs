@@ -24,12 +24,11 @@ namespace DataLayerDbContext.Models
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
     {
-      if (!optionsbuilder.IsConfigured)
-      {
+     
         // #warning to protect potentially sensitive information in your connection string, you should move it out of source code. you can avoid scaffolding the connection string by using the name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. for more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?linkid=723263.
+        // not sure what the commented out connection string below is all about
         // optionsbuilder.usesqlserver("server=08162021dotnetuta.database.windows.net;database=shopdb;user id=sqladmin;password=password12345;");
-        optionsbuilder.UseSqlServer("server=(localdb)\\MSSQLLocalDB;database=ShopDB;Trusted_Connection=True;");
-      }
+     
     }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

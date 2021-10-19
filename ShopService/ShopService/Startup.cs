@@ -90,8 +90,7 @@ namespace ShopService
       {
         if (!options.IsConfigured)
         {
-                // options.UseSqlServer(Configuration.GetConnectionString("ShopLocalDb"));
-                options.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = ShopDb; Trusted_Connection = True;");
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
         }
       });//end dbcontext dependency
       services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);

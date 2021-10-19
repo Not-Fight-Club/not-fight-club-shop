@@ -44,7 +44,7 @@ namespace BusinessLayer.Repo
     public async Task<ViewUser> ReadUser(Guid id)
     {
       // Access microservice for users
-      string baseUrl = _config["userApiUrl"];
+      string baseUrl = _config["apiUrl:users"];
       //string endpointURI = $"{baseUrl}/Character/{characterId}";
       string endpointURI = $"{baseUrl}/api/User/{id}";
       var request = new HttpRequestMessage(HttpMethod.Get, endpointURI);
