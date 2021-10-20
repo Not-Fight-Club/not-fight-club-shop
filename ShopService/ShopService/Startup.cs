@@ -119,14 +119,14 @@ namespace ShopService
         app.UseSwagger();
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopService v1"));
       }
+      
+      app.UseCors("shop");
 
       app.UseDeveloperExceptionPage();
 
       app.UseHttpsRedirection();
 
       app.UseRouting();
-
-      app.UseCors("shop");
 
       app.UseAuthorization();
 
