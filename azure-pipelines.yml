@@ -25,38 +25,40 @@ variables:
 
 
 stages:
-  - stage: Test
-      displayName: Test stage
-      jobs:
-        - job: Test
-          displayName: Test
-          pool:
-            vmImage: $(vmImageName)
-          steps:
-          - task: DotNetCoreCLI@2
-            displayName: 'dotnet restore'
-            inputs:
-              command: 'restore'
-              feedsToUse: 'select'
-          - task: DotNetCoreCLI@2
-            displayName: 'dotnet build'
-            inputs:
-              command: 'build'
-          - task: DotNetCoreCLI@2
-            displayName: 'dotnet test'
-            inputs:
-              command: 'test'
-              arguments: '--collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
-              publishTestResults: true
-              projects: ShopService/TestLayer
-          - task: PublishCodeCoverageResults@1
-            displayName: 'Publish code coverage report'
-            inputs:
-              codeCoverageTool: 'Cobertura'
-              summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+- stage: Test
+  displayName: Test stage
+  jobs:
+    - job: Test
+      displayName: Test
+      pool:
+        vmImage: $(vmImageName)
+      steps:
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet restore'
+        inputs:
+          command: 'restore'
+          feedsToUse: 'select'
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet build'
+        inputs:
+          command: 'build'
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet test'
+        inputs:
+          command: 'test'
+          arguments: '--collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+          publishTestResults: true
+          projects: ShopService/TestLayer
+      - task: PublishCodeCoverageResults@1
+        displayName: 'Publish code coverage report'
+        inputs:
+          codeCoverageTool: 'Cobertura'
+          summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
 - stage: Build
   displayName: Build stage
+  dependsOn: Test
+  condition: succeededOrFailed()
   jobs:
   - job: Build
     displayName: Build
