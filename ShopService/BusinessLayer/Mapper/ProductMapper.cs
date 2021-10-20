@@ -17,8 +17,14 @@ namespace BusinessLayer.Mapper
       viewProduct.ProductPrice = product.ProductPrice;
       viewProduct.ProductDescription = product.ProductDescription;
       viewProduct.ProductDiscount = product.ProductDiscount;
+      viewProduct.CategoryId = product.CategoryId;
+            if(product.Category != null)
+            {
+                viewProduct.Category = product.Category.category;
 
-      return viewProduct;
+            }
+
+            return viewProduct;
     }
 
     public Product ViewModelToModel(ViewProduct viewProduct)
@@ -30,6 +36,18 @@ namespace BusinessLayer.Mapper
       product.ProductPrice = viewProduct.ProductPrice;
       product.ProductDescription = viewProduct.ProductDescription;
       product.ProductDiscount = viewProduct.ProductDiscount;
+      product.CategoryId = viewProduct.CategoryId;
+
+            //build a category object to attach to the product
+            Category cat = new Category();
+            if(viewProduct.CategoryId != null)
+            {
+                cat.CategoryId = (int)viewProduct.CategoryId;
+                cat.category = viewProduct.Category;
+                product.Category = cat;
+            }
+            
+           
 
       return product;
     }
@@ -46,6 +64,8 @@ namespace BusinessLayer.Mapper
         p.ProductPrice = obj[i].ProductPrice;
         p.ProductDescription = obj[i].ProductDescription;
         p.ProductDiscount = obj[i].ProductDiscount;
+        p.CategoryId = obj[i].CategoryId;
+        p.Category = obj[i].Category.category;
         products.Add(p);
       }
       return products;
@@ -62,6 +82,7 @@ namespace BusinessLayer.Mapper
         products[i].ProductPrice = obj[i].ProductPrice;
         products[i].ProductDescription = obj[i].ProductDescription;
         products[i].ProductDiscount = obj[i].ProductDiscount;
+        products[i].CategoryId = obj[i].CategoryId;
       }
       return products;
     }

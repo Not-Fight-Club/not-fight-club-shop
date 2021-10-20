@@ -18,6 +18,7 @@ namespace ModelsLayer.ViewModels
       ProductPrice = productPrice;
       ProductDescription = productDescription;
       ProductDiscount = productDiscount;
+      
     }
 
     public int ProductId { get; set; }
@@ -26,8 +27,14 @@ namespace ModelsLayer.ViewModels
     public decimal ProductPrice { get; set; }
     public string ProductDescription { get; set; }
     public decimal? ProductDiscount { get; set; }
+    public int? CategoryId { get; set; }
 
-    public virtual Seasonal Seasonal { get; set; }
+    public string? Category { get; set; }
+
+
+    //public virtual Category Category { get; set; }
+
+        public virtual Seasonal Seasonal { get; set; }
     public virtual ICollection<UserProduct> UserProducts { get; set; }
   }
 }

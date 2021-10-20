@@ -3,21 +3,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
-using ModelsLayer.Models;
 using ModelsLayer.ViewModels;
 using Microsoft.Extensions.Logging;
+using ModelsLayer.Models;
+using DataLayerDbContext.Models;
 using System;
+
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ShopService.Controllers
 {
-    [Route("api/[controller]")]
+  [Route("api/[controller]")]
   public class ProductController : Controller
   {
 
     private readonly IRepo<ViewProduct, int> _repo;
+
+    private readonly IRepo<ViewUserProduct, int> _upRepo;
 
     private readonly ILogger<ProductController> _logger;
 
@@ -43,7 +47,7 @@ namespace ShopService.Controllers
 
     // GET api/values/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Product>> GetProductById(int id)
+    public async Task<ActionResult<ViewProduct>> GetProductById(int id)
     {
       ViewProduct product = await _repo.Read(id);
 
@@ -60,6 +64,15 @@ namespace ShopService.Controllers
       var newProduct = await _repo.Add(product);
 
       _logger.LogInformation($"{newProduct.ProductName} was added to product list.");
+
+            //send the newProduct id number and the userId to the user product repo
+            //ViewUserProduct up = new();
+            //up.UserId = userId;
+            //up.ProductId = newProduct.ProductId;
+            //up.Product = newProduct;
+           
+            
+            //var userProduct = await _upRepo.Add(up);
       return Ok(newProduct);
 
     }

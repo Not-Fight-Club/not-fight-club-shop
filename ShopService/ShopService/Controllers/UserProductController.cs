@@ -8,6 +8,10 @@ using BusinessLayer.Interface;
 using BusinessLayer;
 using DataLayerDbContext.Models;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,14 +23,16 @@ namespace ShopService.Controllers
   {
 
     private readonly IRepo<ViewUserProduct, int> _repo;
+    private readonly IRepo<ViewUser, int> _userRepo;
 
     private readonly ILogger<ProductController> _logger;
 
 
-    public UserProductController(IRepo<ViewUserProduct, int> repo, ILogger<ProductController> logger)
+    public UserProductController(IRepo<ViewUserProduct, int> repo, ILogger<ProductController> logger, IRepo<ViewUser, int> userrepo)
     {
       _repo = repo;
       _logger = logger;
+      _userRepo = userrepo;
     }
     // GET: api/values
     // [HttpGet]
@@ -49,36 +55,20 @@ namespace ShopService.Controllers
       return Ok(userProduct);
     }
 
-    [HttpPost()]
-    public async Task<ActionResult<ViewUserProduct>> Post([FromBody] ViewUser user, ViewProduct product)
+
+    [HttpPost("{id}")]
+    public async Task<ActionResult<ViewUserProduct>> Post(Guid id, [FromBody] ViewProduct product)
+
     {
-      if (!ModelState.IsValid) return BadRequest("Invalid data.");
-      //should be able to get bucks from user table
-      // ViewUser ur = await _pro.Read(userProduct.UserId);
-      // bucks = ur.buck
-      // var bucks = 0;
-      // ViewProduct pr = await _pro.Read(userProduct.ProductId);
+      _logger.LogInformation("I'm here");
+      _logger.LogInformation($"{id}");
 
-      var discountedPrice = Discount.DiscountedCost(product.ProductPrice, product.ProductDiscount);
+      ViewUserProduct up = new ViewUserProduct(0, id, product.ProductId);
 
+      var newUserProduct = await _repo.Add(up);
+      _logger.LogInformation($"Purchased {product.ProductName}");
 
-      if (discountedPrice > user.Bucks)
-      {
-        _logger.LogInformation($"Not enough bucks to purchase");
-        return NotFound($"Not enough money");
-      }
-      else
-      {
-        ViewUserProduct up = new ViewUserProduct(0, user.UserId, product.ProductId);
-
-        var newUserProduct = await _repo.Add(up);
-        _logger.LogInformation($"User with user id: {newUserProduct.UserId} purchased {product.ProductName}");
-
-        return Ok(newUserProduct);
-      }
-
-
-
+      return Ok(newUserProduct);
 
     }
 
