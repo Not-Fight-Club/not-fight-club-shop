@@ -33,13 +33,13 @@ namespace ShopService
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<ShopDbContext>();
-      services.AddSingleton<IRepo<ViewProduct, int>, ProductRepository>();
-      services.AddSingleton<IMapper<Product, ViewProduct>, ProductMapper>();
-      services.AddSingleton<IRepo<ViewUserProduct, int>, UserProductRepository>();
-      services.AddSingleton<IMapper<UserProduct, ViewUserProduct>, UserProductMapper>();
-      services.AddSingleton<IRepo<ViewSeasonal, DateTime>, SeasonRepo>();
-      services.AddSingleton<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
+      //services.AddDbContext<ShopDbContext>();
+      services.AddScoped<IRepo<ViewProduct, int>, ProductRepository>();
+      services.AddScoped<IMapper<Product, ViewProduct>, ProductMapper>();
+      services.AddScoped<IRepo<ViewUserProduct, int>, UserProductRepository>();
+      services.AddScoped<IMapper<UserProduct, ViewUserProduct>, UserProductMapper>();
+      services.AddScoped<IRepo<ViewSeasonal, DateTime>, SeasonRepo>();
+      services.AddScoped<IMapper<Seasonal, ViewSeasonal>, SeasonalMapper>();
       //added cors policy with orgin local host addresses
       services.AddCors((options) =>
       {
