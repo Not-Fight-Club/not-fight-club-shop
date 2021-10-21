@@ -13,13 +13,14 @@ namespace BusinessLayer.Repo
 {
   public class ProductRepository : IRepo<ViewProduct,int>
   {
-    private readonly ShopDbContext _dbContext = new ShopDbContext();
+    private readonly ShopDbContext _dbContext;
 
     private readonly IMapper<Product, ViewProduct> _mapper;
 
-    public ProductRepository(IMapper<Product, ViewProduct> mapper)
+    public ProductRepository(IMapper<Product, ViewProduct> mapper, ShopDbContext context)
     {
       _mapper = mapper;
+      _dbContext = context;
     }
 
     public async Task<ViewProduct> Add(ViewProduct viewProduct)
