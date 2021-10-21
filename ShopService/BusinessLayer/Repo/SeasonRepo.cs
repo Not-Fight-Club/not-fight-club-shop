@@ -18,9 +18,9 @@ namespace BusinessLayer.Repo
 
     private readonly IMapper<Seasonal, ViewSeasonal> _mapper;
 
-    public SeasonRepo(IMapper<Seasonal, ViewSeasonal> mapper)
+    public SeasonRepo(IMapper<Seasonal, ViewSeasonal> mapper, ShopDbContext context)
     {
-      _dbContext = new ShopDbContext();
+      _dbContext = context;
       _mapper = mapper;
     }
 
