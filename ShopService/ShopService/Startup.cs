@@ -61,7 +61,15 @@ namespace ShopService
                  "http://localhost:5005",
                  "http://localhost:5007",
                  "http://localhost:5009",
-                 "http://localhost:5011"
+                 "http://localhost:5011",
+
+                 "http://users.eastus.cloudapp.azure.com:5001",
+                 "http://fights.eastus.cloudapp.azure.com:5003",
+                 "http://char.eastus.cloudapp.azure.com:5005",
+                 "http://bets1.eastus.cloudapp.azure.com:5007",//gold standard
+                 "http://shop11.eastus.cloudapp.azure.com:5009",
+                 "http://social.eastus.cloudapp.azure.com:5011",
+                 "http://notfightclub.eastus.cloudapp.azure.com"
 
 
                  )
@@ -111,14 +119,14 @@ namespace ShopService
         app.UseSwagger();
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopService v1"));
       }
+      
+      app.UseCors("shop");
 
       app.UseDeveloperExceptionPage();
 
       app.UseHttpsRedirection();
 
       app.UseRouting();
-
-      app.UseCors("shop");
 
       app.UseAuthorization();
 

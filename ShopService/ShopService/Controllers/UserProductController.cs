@@ -23,16 +23,14 @@ namespace ShopService.Controllers
   {
 
     private readonly IRepo<ViewUserProduct, int> _repo;
-    private readonly IRepo<ViewUser, int> _userRepo;
 
     private readonly ILogger<ProductController> _logger;
 
 
-    public UserProductController(IRepo<ViewUserProduct, int> repo, ILogger<ProductController> logger, IRepo<ViewUser, int> userrepo)
+    public UserProductController(IRepo<ViewUserProduct, int> repo, ILogger<ProductController> logger)
     {
       _repo = repo;
       _logger = logger;
-      _userRepo = userrepo;
     }
     // GET: api/values
     // [HttpGet]
